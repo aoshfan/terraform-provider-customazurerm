@@ -7,7 +7,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/hashicorp/terraform-provider-azurerm/helpers/azure"
+	"github.com/aoshfan/terraform-provider-customazurerm/helpers/azure"
 )
 
 func TestParseAzureResourceID(t *testing.T) {

@@ -4,14 +4,13 @@ layout: "azurerm"
 page_title: "Azure Resource Manager: azurerm_network_watcher_flow_log"
 description: |-
   Manages a Network Watcher Flow Log.
-
 ---
 
 # azurerm_network_watcher_flow_log
 
 Manages a Network Watcher Flow Log.
 
-~> **Note** The `azurerm_network_watcher_flow_log` creates a new storage lifecyle management rule that overwrites existing rules. Please make sure to use a `storage_account` with no existing management rules, until the [issue](https://github.com/hashicorp/terraform-provider-azurerm/issues/6935) is fixed.
+~> **Note** The `azurerm_network_watcher_flow_log` creates a new storage lifecyle management rule that overwrites existing rules. Please make sure to use a `storage_account` with no existing management rules, until the [issue](https://github.com/aoshfan/terraform-provider-customazurerm/issues/6935) is fixed.
 
 ## Example Usage
 
@@ -79,59 +78,59 @@ resource "azurerm_network_watcher_flow_log" "test" {
 
 The following arguments are supported:
 
-* `name` - (Required) The name of the Network Watcher Flow Log. Changing this forces a new resource to be created.
+- `name` - (Required) The name of the Network Watcher Flow Log. Changing this forces a new resource to be created.
 
-* `network_watcher_name` - (Required) The name of the Network Watcher. Changing this forces a new resource to be created.
+- `network_watcher_name` - (Required) The name of the Network Watcher. Changing this forces a new resource to be created.
 
-* `resource_group_name` - (Required) The name of the resource group in which the Network Watcher was deployed. Changing this forces a new resource to be created.
+- `resource_group_name` - (Required) The name of the resource group in which the Network Watcher was deployed. Changing this forces a new resource to be created.
 
-* `target_resource_id` - (Required) The ID of the Resource for which to enable flow logs for. Changing this forces a new resource to be created.
+- `target_resource_id` - (Required) The ID of the Resource for which to enable flow logs for. Changing this forces a new resource to be created.
 
-* `storage_account_id` - (Required) The ID of the Storage Account where flow logs are stored.
+- `storage_account_id` - (Required) The ID of the Storage Account where flow logs are stored.
 
-* `enabled` - (Required) Should Network Flow Logging be Enabled?
+- `enabled` - (Required) Should Network Flow Logging be Enabled?
 
-* `retention_policy` - (Required) A `retention_policy` block as documented below.
+- `retention_policy` - (Required) A `retention_policy` block as documented below.
 
-* `location` - (Optional) The location where the Network Watcher Flow Log resides. Changing this forces a new resource to be created. Defaults to the `location` of the Network Watcher.
+- `location` - (Optional) The location where the Network Watcher Flow Log resides. Changing this forces a new resource to be created. Defaults to the `location` of the Network Watcher.
 
-* `traffic_analytics` - (Optional) A `traffic_analytics` block as documented below.
+- `traffic_analytics` - (Optional) A `traffic_analytics` block as documented below.
 
-* `version` - (Optional) The version (revision) of the flow log. Possible values are `1` and `2`. Defaults to `1`.
+- `version` - (Optional) The version (revision) of the flow log. Possible values are `1` and `2`. Defaults to `1`.
 
-* `tags` - (Optional) A mapping of tags which should be assigned to the Network Watcher Flow Log.
+- `tags` - (Optional) A mapping of tags which should be assigned to the Network Watcher Flow Log.
 
 ---
 
 The `retention_policy` block supports the following:
 
-* `enabled` - (Required) Boolean flag to enable/disable retention.
-* `days` - (Required) The number of days to retain flow log records.
- 
+- `enabled` - (Required) Boolean flag to enable/disable retention.
+- `days` - (Required) The number of days to retain flow log records.
+
 ---
 
 The `traffic_analytics` block supports the following:
 
-* `enabled` - (Required) Boolean flag to enable/disable traffic analytics.
-* `workspace_id` - (Required) The resource GUID of the attached workspace.
-* `workspace_region` - (Required) The location of the attached workspace.
-* `workspace_resource_id` - (Required) The resource ID of the attached workspace.
-* `interval_in_minutes` - (Optional) How frequently service should do flow analytics in minutes. Defaults to `60`.
+- `enabled` - (Required) Boolean flag to enable/disable traffic analytics.
+- `workspace_id` - (Required) The resource GUID of the attached workspace.
+- `workspace_region` - (Required) The location of the attached workspace.
+- `workspace_resource_id` - (Required) The resource ID of the attached workspace.
+- `interval_in_minutes` - (Optional) How frequently service should do flow analytics in minutes. Defaults to `60`.
 
 ## Attributes Reference
 
 In addition to the Arguments listed above - the following Attributes are exported:
 
-* `id` - The ID of the Network Watcher.
+- `id` - The ID of the Network Watcher.
 
 ## Timeouts
 
 The `timeouts` block allows you to specify [timeouts](https://www.terraform.io/language/resources/syntax#operation-timeouts) for certain actions:
 
-* `create` - (Defaults to 30 minutes) Used when creating the Network Watcher Flow Log.
-* `update` - (Defaults to 30 minutes) Used when updating the Network Watcher Flow Log.
-* `read` - (Defaults to 5 minutes) Used when retrieving the Network Watcher Flow Log.
-* `delete` - (Defaults to 30 minutes) Used when deleting the Network Watcher Flow Log.
+- `create` - (Defaults to 30 minutes) Used when creating the Network Watcher Flow Log.
+- `update` - (Defaults to 30 minutes) Used when updating the Network Watcher Flow Log.
+- `read` - (Defaults to 5 minutes) Used when retrieving the Network Watcher Flow Log.
+- `delete` - (Defaults to 30 minutes) Used when deleting the Network Watcher Flow Log.
 
 ## Import
 

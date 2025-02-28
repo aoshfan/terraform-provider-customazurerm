@@ -15,10 +15,10 @@ import (
 	"strings"
 	"time"
 
+	"github.com/aoshfan/terraform-provider-customazurerm/internal/provider"
+	"github.com/aoshfan/terraform-provider-customazurerm/internal/sdk"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/hashicorp/terraform-provider-azurerm/internal/provider"
-	"github.com/hashicorp/terraform-provider-azurerm/internal/sdk"
-	"github.com/magodo/terraform-provider-azurerm-example-gen/examplegen"
+	"github.com/magodo/terraform-provider-customazurerm-example-gen/examplegen"
 )
 
 // NOTE: since we're using `go run` for these tools all of the code needs to live within the main.go

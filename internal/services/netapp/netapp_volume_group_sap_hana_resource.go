@@ -10,6 +10,13 @@ import (
 	"strings"
 	"time"
 
+	"github.com/aoshfan/terraform-provider-customazurerm/helpers/azure"
+	"github.com/aoshfan/terraform-provider-customazurermrerm/internal/sdk"
+	netAppModels "github.com/aoshfan/terraform-provider-customazurermrerm/internal/services/netapp/models"
+	netAppValidate "github.com/aoshfan/terraform-provider-customazurermrerm/internal/services/netapp/validate"
+	"github.com/aoshfan/terraform-provider-customazurermrerm/internal/tf/pluginsdk"
+	"github.com/aoshfan/terraform-provider-customazurermrerm/internal/tf/validation"
+	"github.com/aoshfan/terraform-provider-customazurermrerm/utils"
 	"github.com/hashicorp/go-azure-helpers/lang/pointer"
 	"github.com/hashicorp/go-azure-helpers/lang/response"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/commonschema"
@@ -19,13 +26,6 @@ import (
 	"github.com/hashicorp/go-azure-sdk/resource-manager/netapp/2024-03-01/volumegroups"
 	"github.com/hashicorp/go-azure-sdk/resource-manager/netapp/2024-03-01/volumes"
 	"github.com/hashicorp/go-azure-sdk/resource-manager/netapp/2024-03-01/volumesreplication"
-	"github.com/hashicorp/terraform-provider-azurerm/helpers/azure"
-	"github.com/hashicorp/terraform-provider-azurerm/internal/sdk"
-	netAppModels "github.com/hashicorp/terraform-provider-azurerm/internal/services/netapp/models"
-	netAppValidate "github.com/hashicorp/terraform-provider-azurerm/internal/services/netapp/validate"
-	"github.com/hashicorp/terraform-provider-azurerm/internal/tf/pluginsdk"
-	"github.com/hashicorp/terraform-provider-azurerm/internal/tf/validation"
-	"github.com/hashicorp/terraform-provider-azurerm/utils"
 )
 
 type NetAppVolumeGroupSAPHanaResource struct{}

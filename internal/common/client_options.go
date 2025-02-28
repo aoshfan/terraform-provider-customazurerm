@@ -9,12 +9,12 @@ import (
 	"strings"
 
 	"github.com/Azure/go-autorest/autorest"
+	"github.com/aoshfan/terraform-provider-customazurerm/internal/features"
+	"github.com/aoshfan/terraform-provider-customazurerm/version"
 	"github.com/hashicorp/go-azure-helpers/sender"
 	"github.com/hashicorp/go-azure-sdk/sdk/auth"
 	"github.com/hashicorp/go-azure-sdk/sdk/client"
 	"github.com/hashicorp/go-azure-sdk/sdk/environments"
-	"github.com/hashicorp/terraform-provider-azurerm/internal/features"
-	"github.com/hashicorp/terraform-provider-azurerm/version"
 )
 
 type Authorizers struct {
@@ -97,7 +97,7 @@ func (o ClientOptions) ConfigureClient(c *autorest.Client, authorizer autorest.A
 func userAgent(userAgent, tfVersion, partnerID string, disableTerraformPartnerID bool) string {
 	tfUserAgent := fmt.Sprintf("HashiCorp Terraform/%s (+https://www.terraform.io)", tfVersion)
 
-	providerUserAgent := fmt.Sprintf("%s terraform-provider-azurerm/%s", tfUserAgent, version.ProviderVersion)
+	providerUserAgent := fmt.Sprintf("%s terraform-provider-customazurerm/%s", tfUserAgent, version.ProviderVersion)
 	userAgent = strings.TrimSpace(fmt.Sprintf("%s %s", userAgent, providerUserAgent))
 
 	// append the CloudShell version to the user agent if it exists

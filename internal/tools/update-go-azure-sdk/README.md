@@ -13,7 +13,7 @@ Whilst this tool is intended to primarily be run in automation - [the `update-ap
 ```bash
  $ go build . && ./update-go-azure-sdk --new-sdk-version=v0.20231005.1153009 --azurerm-repo-path=../../../                                                                                                      (tool/update-go-azure-sdk ⚡)
 2023-10-11T10:47:53.665+0200 [INFO]  New SDK Version is "v0.20231005.1153009"
-2023-10-11T10:47:53.665+0200 [INFO]  The `hashicorp/terraform-provider-azurerm` repository is located at "../../../"
+2023-10-11T10:47:53.665+0200 [INFO]  The `aoshfan/terraform-provider-customazurerm` repository is located at "../../../"
 2023-10-11T10:47:53.665+0200 [INFO]  A path to the `hashicorp/go-azure-sdk` repository was not provided - will clone on-demand
 2023-10-11T10:47:53.665+0200 [INFO]  No output file was specified so the PR description will only be output to the console
 2023-10-11T10:47:53.665+0200 [INFO]  Determining the current version of `hashicorp/go-azure-sdk` being used..
@@ -67,11 +67,11 @@ running `make test` in "../../../": stdout:
 
 stderr:
 ---
-# github.com/hashicorp/terraform-provider-azurerm/internal/services/cosmos
+# github.com/aoshfan/terraform-provider-customazurerm/internal/services/cosmos
 internal/services/cosmos/cosmosdb_mongo_role_definition_resource.go:154:27: undefined: mongorbacs.MongoRoleDefinitionTypeOne
-internal/services/cosmos/cosmosdb_mongo_role_definition_resource.go:161:30: cannot infer T (/Users/tharvey/code/src/github.com/hashicorp/terraform-provider-azurerm/vendor/github.com/hashicorp/go-azure-helpers/lang/pointer/generic.go:17:9)
+internal/services/cosmos/cosmosdb_mongo_role_definition_resource.go:161:30: cannot infer T (/Users/tharvey/code/src/github.com/aoshfan/terraform-provider-customazurerm/vendor/github.com/hashicorp/go-azure-helpers/lang/pointer/generic.go:17:9)
 internal/services/cosmos/cosmosdb_mongo_role_definition_resource.go:209:27: undefined: mongorbacs.MongoRoleDefinitionTypeOne
-internal/services/cosmos/cosmosdb_mongo_role_definition_resource.go:216:30: cannot infer T (/Users/tharvey/code/src/github.com/hashicorp/terraform-provider-azurerm/vendor/github.com/hashicorp/go-azure-helpers/lang/pointer/generic.go:17:9)
+internal/services/cosmos/cosmosdb_mongo_role_definition_resource.go:216:30: cannot infer T (/Users/tharvey/code/src/github.com/aoshfan/terraform-provider-customazurerm/vendor/github.com/hashicorp/go-azure-helpers/lang/pointer/generic.go:17:9)
 make: *** [test] Error 1
 
 ---
@@ -82,7 +82,7 @@ make: *** [test] Error 1
 
 ### Command Line Arguments
 
-* `--azurerm-repo-path` - (Required) - Specifies the path to the root of the AzureRM Provider repository (typically this is `../../../`, when run from this repository). Example: `../../../`.
-* `--go-sdk-repo-path` - (Optional) - Specifies the path to the root of the `hashicorp/go-azure-sdk` repository, if provided this path is used - if not a fresh copy is cloned into a temp directory. Example: `../../../../go-azure-sdk`.
-* `--new-sdk-version` - (Required) - Specifies the version of `hashicorp/go-azure-sdk` that the Provider should be updated to. Example: `v0.20231005.1153009`.
-* `--output-file` - (Optional) - Specifies the path to the output file containing the summary of changes performed by this tool, primarily intended to be used as a Pull Request body. Example: `pr-description.txt`.
+- `--azurerm-repo-path` - (Required) - Specifies the path to the root of the AzureRM Provider repository (typically this is `../../../`, when run from this repository). Example: `../../../`.
+- `--go-sdk-repo-path` - (Optional) - Specifies the path to the root of the `hashicorp/go-azure-sdk` repository, if provided this path is used - if not a fresh copy is cloned into a temp directory. Example: `../../../../go-azure-sdk`.
+- `--new-sdk-version` - (Required) - Specifies the version of `hashicorp/go-azure-sdk` that the Provider should be updated to. Example: `v0.20231005.1153009`.
+- `--output-file` - (Optional) - Specifies the path to the output file containing the summary of changes performed by this tool, primarily intended to be used as a Pull Request body. Example: `pr-description.txt`.

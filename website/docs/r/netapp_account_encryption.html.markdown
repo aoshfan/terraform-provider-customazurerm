@@ -110,36 +110,34 @@ resource "azurerm_netapp_account_encryption" "example" {
 
 The following arguments are supported:
 
-* `encryption_key` - (Required) Specify the versionless ID of the encryption key.
+- `encryption_key` - (Required) Specify the versionless ID of the encryption key.
 
-* `netapp_account_id` - (Required) The ID of the NetApp account where volume under it will have customer managed keys-based encryption enabled.
-
----
-
-* `system_assigned_identity_principal_id` - (Optional) The ID of the System Assigned Manged Identity. Conflicts with `user_assigned_identity_id`.
-
-* `user_assigned_identity_id` - (Optional) The ID of the User Assigned Managed Identity. Conflicts with `system_assigned_identity_principal_id`.
+- `netapp_account_id` - (Required) The ID of the NetApp account where volume under it will have customer managed keys-based encryption enabled.
 
 ---
 
+- `system_assigned_identity_principal_id` - (Optional) The ID of the System Assigned Manged Identity. Conflicts with `user_assigned_identity_id`.
 
+- `user_assigned_identity_id` - (Optional) The ID of the User Assigned Managed Identity. Conflicts with `system_assigned_identity_principal_id`.
 
-A full example of the `azurerm_netapp_account_encryption` resource and NetApp Volume with customer-managed keys encryption enabled can be found in [the `./examples/netapp/nfsv3_volume_cmk_userassigned` directory within the GitHub Repository](https://github.com/hashicorp/terraform-provider-azurerm/tree/main/examples/netapp/nfsv3_volume_cmk_userassigned)
+---
+
+A full example of the `azurerm_netapp_account_encryption` resource and NetApp Volume with customer-managed keys encryption enabled can be found in [the `./examples/netapp/nfsv3_volume_cmk_userassigned` directory within the GitHub Repository](https://github.com/aoshfan/terraform-provider-customazurerm/tree/main/examples/netapp/nfsv3_volume_cmk_userassigned)
 
 ## Attributes Reference
 
 In addition to the Arguments listed above - the following Attributes are exported:
 
-* `id` - The ID of the Account Encryption Resource.
+- `id` - The ID of the Account Encryption Resource.
 
 ## Timeouts
 
 The `timeouts` block allows you to specify [timeouts](https://www.terraform.io/language/resources/syntax#operation-timeouts) for certain actions:
 
-* `create` - (Defaults to 90 minutes) Used when creating the Account Encryption Resource.
-* `read` - (Defaults to 5 minutes) Used when retrieving the Account Encryption Resource.
-* `update` - (Defaults to 2 hours) Used when updating the Account Encryption Resource.
-* `delete` - (Defaults to 2 hours) Used when deleting the Account Encryption Resource.
+- `create` - (Defaults to 90 minutes) Used when creating the Account Encryption Resource.
+- `read` - (Defaults to 5 minutes) Used when retrieving the Account Encryption Resource.
+- `update` - (Defaults to 2 hours) Used when updating the Account Encryption Resource.
+- `delete` - (Defaults to 2 hours) Used when deleting the Account Encryption Resource.
 
 ## Import
 

@@ -13,7 +13,7 @@ This document gives insights into who is maintaining this service and includes d
 
 - New tests failing should not be accepted.
 
-- For Azure NetApp Files, some features are highly dependent on specific regions, that's why for some acceptance tests, we will see regions defined there instead of for example `data.Locations.Primary` within the templates, this is expected and should not be changed. 
+- For Azure NetApp Files, some features are highly dependent on specific regions, that's why for some acceptance tests, we will see regions defined there instead of for example `data.Locations.Primary` within the templates, this is expected and should not be changed.
 
 ## Polling functions
 
@@ -26,18 +26,18 @@ if err := waitForVolumeCreateOrUpdate(ctx, client, id); err != nil {
 }
 ```
 
-  This is because some operations return from regular SDK polling as completed but due to several factors it is still in progress (e.g. ARM caching, software and hardware layer sync delays, etc.). These wait functions are necessary and should not be removed.
+This is because some operations return from regular SDK polling as completed but due to several factors it is still in progress (e.g. ARM caching, software and hardware layer sync delays, etc.). These wait functions are necessary and should not be removed.
 
 - Do not approve Pull Requests that relies on `<Create or Delete Operations>ThenPoll()` methods, e.g. `DeleteThenPoll()`, we should not use those for volume related operations due to some unknown [issues](https://github.com/hashicorp/pandora/issues/4571) with Pandora, those for Azure NetApp Files are not reliable, causing errors from time to time (and depending on the operation, very frequently) like this:
 
 ```text
-pmarques [ ~/go/src/github.com/hashicorp/terraform-provider-azurerm ]$ make acctests SERVICE='netapp' TESTARGS=' -parallel 5 -run=TestAccNetAppVolumeGroupSAPHana_crossRegionReplication -count=1' TESTTIMEOUT='1200m'
+pmarques [ ~/go/src/github.com/aoshfan/terraform-provider-customazurerm ]$ make acctests SERVICE='netapp' TESTARGS=' -parallel 5 -run=TestAccNetAppVolumeGroupSAPHana_crossRegionReplication -count=1' TESTTIMEOUT='1200m'
 ==> Checking that code complies with gofmt requirements...
 ==> Checking that Custom Timeouts are used...
 egrep: warning: egrep is obsolescent; using grep -E
 egrep: warning: egrep is obsolescent; using grep -E
 ==> Checking that acceptance test packages are used...
-TF_ACC=1 go test -v ./internal/services/netapp -parallel 5 -run=TestAccNetAppVolumeGroupSAPHana_crossRegionReplication -count=1 -timeout 1200m -ldflags="-X=github.com/hashicorp/terraform-provider-azurerm/version.ProviderVersion=acc"
+TF_ACC=1 go test -v ./internal/services/netapp -parallel 5 -run=TestAccNetAppVolumeGroupSAPHana_crossRegionReplication -count=1 -timeout 1200m -ldflags="-X=github.com/aoshfan/terraform-provider-customazurerm/version.ProviderVersion=acc"
 === RUN   TestAccNetAppVolumeGroupSAPHana_crossRegionReplication
 === PAUSE TestAccNetAppVolumeGroupSAPHana_crossRegionReplication
 === CONT  TestAccNetAppVolumeGroupSAPHana_crossRegionReplication
@@ -59,7 +59,7 @@ TF_ACC=1 go test -v ./internal/services/netapp -parallel 5 -run=TestAccNetAppVol
         was "DeleteReplication" / `op.Properties.ProvisioningState` was ""
 --- FAIL: TestAccNetAppVolumeGroupSAPHana_crossRegionReplication (1375.67s)
 FAIL
-FAIL    github.com/hashicorp/terraform-provider-azurerm/internal/services/netapp        1375.697s
+FAIL    github.com/aoshfan/terraform-provider-customazurerm/internal/services/netapp        1375.697s
 FAIL
 make: *** [GNUmakefile:103: acctests] Error 1
 ```
@@ -138,4 +138,3 @@ backupPolicyIdRemoval := volumes.VolumePatch{
     }, false),
 },
 ```
-

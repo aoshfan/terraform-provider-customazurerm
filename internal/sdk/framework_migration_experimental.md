@@ -1,10 +1,11 @@
 # Framework Adoption - Experimental
 
-**WARNING:** This functionality is experimental, and not for use in the provider at this time. It is intended for maintainer experimentation to facilitate migration efforts for moving from `terraform-plugin-sdk` to `terraform-plugin-framework`.  This package is subject to removal or significant breaking change. Any PR submitted referencing/using this package/functionality will not be accepted, and will be closed.
+**WARNING:** This functionality is experimental, and not for use in the provider at this time. It is intended for maintainer experimentation to facilitate migration efforts for moving from `terraform-plugin-sdk` to `terraform-plugin-framework`. This package is subject to removal or significant breaking change. Any PR submitted referencing/using this package/functionality will not be accepted, and will be closed.
 
 ## Resources
 
 Example: (Working re-implementation of `azurerm_resource_group` as Framework, named `azurerm_fw_resource_group` to avoid collision)
+
 ```go
 package resource
 
@@ -29,9 +30,9 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-provider-azurerm/internal/sdk"
-	"github.com/hashicorp/terraform-provider-azurerm/internal/sdk/frameworkhelpers"
-	"github.com/hashicorp/terraform-provider-azurerm/internal/services/resource/custompollers"
+	"github.com/aoshfan/terraform-provider-customazurerm/internal/sdk"
+	"github.com/aoshfan/terraform-provider-customazurerm/internal/sdk/frameworkhelpers"
+	"github.com/aoshfan/terraform-provider-customazurerm/internal/services/resource/custompollers"
 )
 
 var _ sdk.FrameworkResource = &FWResourceGroupResource{}
@@ -310,7 +311,7 @@ package someazureservice
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/ephemeral/schema"
-	"github.com/hashicorp/terraform-provider-azurerm/internal/sdk"
+	"github.com/aoshfan/terraform-provider-customazurerm/internal/sdk"
 )
 
 type MyEphemeralResource struct {

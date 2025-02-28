@@ -4,8 +4,8 @@ This guide covers adding a new Resource to a Service Package, see [adding a New 
 
 ### Related Topics
 
-* [Acceptance Testing](reference-acceptance-testing.md)
-* [Our Recommendations for opening a Pull Request](guide-opening-a-pr.md)
+- [Acceptance Testing](reference-acceptance-testing.md)
+- [Our Recommendations for opening a Pull Request](guide-opening-a-pr.md)
 
 ### Stages
 
@@ -44,7 +44,7 @@ import (
     "fmt"
 
     "github.com/hashicorp/go-azure-sdk/resource-manager/resources/2022-09-01/resources"
-    "github.com/hashicorp/terraform-provider-azurerm/internal/common"
+    "github.com/aoshfan/terraform-provider-customazurerm/internal/common"
 )
 
 type Client struct {
@@ -93,7 +93,7 @@ In this case, this'd be a file called `resource_group_example_resource.go`, whic
 ```go
 package resource
 
-import "github.com/hashicorp/terraform-provider-azurerm/internal/sdk"
+import "github.com/aoshfan/terraform-provider-customazurerm/internal/sdk"
 
 var _ sdk.Resource = ResourceGroupExampleResource{}
 
@@ -119,14 +119,14 @@ type Resource interface {
 
 To go through these in turn:
 
-* `Arguments` returns a list of schema fields which are user-specifiable - either Required or Optional.
-* `Attributes` returns a list of schema fields which are Computed (read-only).
-* `ModelObject` returns a reference to a Go struct which is used as the Model for this Resource (this can also return `nil` if there's no model).
-* `ResourceType` returns the name of this resource within the Provider (for example `azurerm_resource_group_example`).
-* `Create` returns a function defining both the Timeout and the Create function (which creates this Resource Group using the Azure API) for this Resource.
-* `Read` returns a function defining both the Timeout and the Read function (which retrieves information from the Azure API) for this Resource.
-* `Delete` returns a function defining both the Timeout and the Delete function (which deletes this Resource Group using the Azure API) for this Resource.
-* `IDValidationFunc` returns a function which validates the Resource ID provided during `terraform import` to ensure it matches what we expect for this Resource.
+- `Arguments` returns a list of schema fields which are user-specifiable - either Required or Optional.
+- `Attributes` returns a list of schema fields which are Computed (read-only).
+- `ModelObject` returns a reference to a Go struct which is used as the Model for this Resource (this can also return `nil` if there's no model).
+- `ResourceType` returns the name of this resource within the Provider (for example `azurerm_resource_group_example`).
+- `Create` returns a function defining both the Timeout and the Create function (which creates this Resource Group using the Azure API) for this Resource.
+- `Read` returns a function defining both the Timeout and the Read function (which retrieves information from the Azure API) for this Resource.
+- `Delete` returns a function defining both the Timeout and the Delete function (which deletes this Resource Group using the Azure API) for this Resource.
+- `IDValidationFunc` returns a function which validates the Resource ID provided during `terraform import` to ensure it matches what we expect for this Resource.
 
 ```go
 type ResourceGroupExampleResourceModel struct {
@@ -229,7 +229,6 @@ func (r ResourceGroupExampleResource) Create() sdk.ResourceFunc {
 }
 ```
 
-
 Let's implement the Update function:
 
 ```go
@@ -294,7 +293,6 @@ func (r ResourceGroupExampleResource) Update() sdk.ResourceFunc {
     }
 }
 ```
-
 
 ---
 
@@ -428,8 +426,8 @@ import (
     "github.com/hashicorp/go-azure-helpers/resourcemanager/commonschema"
     "github.com/hashicorp/go-azure-helpers/resourcemanager/location"
     "github.com/hashicorp/go-azure-helpers/resourcemanager/tags"
-    "github.com/hashicorp/terraform-provider-azurerm/internal/sdk"
-    "github.com/hashicorp/terraform-provider-azurerm/internal/tf/pluginsdk"
+    "github.com/aoshfan/terraform-provider-customazurerm/internal/sdk"
+    "github.com/aoshfan/terraform-provider-customazurerm/internal/tf/pluginsdk"
 )
 
 var _ sdk.Resource = ResourceGroupExampleResource{}
@@ -602,7 +600,7 @@ Resources are registered within the `registration.go` within each Service Packag
 ```go
 package resource
 
-import "github.com/hashicorp/terraform-provider-azurerm/internal/sdk"
+import "github.com/aoshfan/terraform-provider-customazurerm/internal/sdk"
 
 var _ sdk.TypedServiceRegistration = Registration{}
 
@@ -645,7 +643,7 @@ func (Registration) WebsiteCategories() []string {
 }
 ```
 
-> In this case you'll also need to add a line to register this Service Registration [in the list of Typed Service Registrations](https://github.com/hashicorp/terraform-provider-azurerm/blob/bd7c755b789fa131778ef93824cf3bae5caccf56/internal/provider/services.go#L109).
+> In this case you'll also need to add a line to register this Service Registration [in the list of Typed Service Registrations](https://github.com/aoshfan/terraform-provider-customazurerm/blob/bd7c755b789fa131778ef93824cf3bae5caccf56/internal/provider/services.go#L109).
 
 ---
 
@@ -693,12 +691,12 @@ import (
     "fmt"
     "testing"
 
-    "github.com/hashicorp/terraform-provider-azurerm/internal/acceptance"
-    "github.com/hashicorp/terraform-provider-azurerm/internal/acceptance/check"
-    "github.com/hashicorp/terraform-provider-azurerm/internal/clients"
-    "github.com/hashicorp/terraform-provider-azurerm/internal/services/resource/parse"
-    "github.com/hashicorp/terraform-provider-azurerm/internal/tf/pluginsdk"
-    "github.com/hashicorp/terraform-provider-azurerm/utils"
+    "github.com/aoshfan/terraform-provider-customazurerm/internal/acceptance"
+    "github.com/aoshfan/terraform-provider-customazurerm/internal/acceptance/check"
+    "github.com/aoshfan/terraform-provider-customazurerm/internal/clients"
+    "github.com/aoshfan/terraform-provider-customazurerm/internal/services/resource/parse"
+    "github.com/aoshfan/terraform-provider-customazurerm/internal/tf/pluginsdk"
+    "github.com/aoshfan/terraform-provider-customazurerm/utils"
 )
 
 type ResourceGroupExampleTestResource struct{}
@@ -706,7 +704,7 @@ type ResourceGroupExampleTestResource struct{}
 func TestAccResourceGroupExample_basic(t *testing.T) {
     data := acceptance.BuildTestData(t, "azurerm_resource_group_example", "test")
     r := ResourceGroupExampleTestResource{}
-    
+
     data.ResourceTest(t, r, []acceptance.TestStep{
         {
             Config: r.basic(data),
@@ -721,7 +719,7 @@ func TestAccResourceGroupExample_basic(t *testing.T) {
 func TestAccResourceGroupExample_requiresImport(t *testing.T) {
     data := acceptance.BuildTestData(t, "azurerm_resource_group_example", "test")
     r := ResourceGroupExampleTestResource{}
-    
+
     data.ResourceTest(t, r, []acceptance.TestStep{
         {
             Config: r.basic(data),
@@ -736,7 +734,7 @@ func TestAccResourceGroupExample_requiresImport(t *testing.T) {
 func TestAccResourceGroupExample_complete(t *testing.T) {
     data := acceptance.BuildTestData(t, "azurerm_resource_group_example", "test")
     r := ResourceGroupExampleTestResource{}
-    
+
     data.ResourceTest(t, r, []acceptance.TestStep{
         {
             Config: r.complete(data),
@@ -751,7 +749,7 @@ func TestAccResourceGroupExample_complete(t *testing.T) {
 func TestAccResourceGroupExample_update(t *testing.T) {
     data := acceptance.BuildTestData(t, "azurerm_resource_group_example", "test")
     r := ResourceGroupExampleTestResource{}
-    
+
     data.ResourceTest(t, r, []acceptance.TestStep{
         {
             Config: r.basic(data),
@@ -852,7 +850,7 @@ Which should output:
 ==> Checking that code complies with gofmt requirements...
 ==> Checking that Custom Timeouts are used...
 ==> Checking that acceptance test packages are used...
-TF_ACC=1 go test -v ./internal/services/resource -run=TestAccResourceGroupExample_ -timeout 60m -ldflags="-X=github.com/hashicorp/terraform-provider-azurerm/version.ProviderVersion=acc"
+TF_ACC=1 go test -v ./internal/services/resource -run=TestAccResourceGroupExample_ -timeout 60m -ldflags="-X=github.com/aoshfan/terraform-provider-customazurerm/version.ProviderVersion=acc"
 === RUN   TestAccResourceGroupExample_basic
 === PAUSE TestAccResourceGroupExample_basic
 === CONT  TestAccResourceGroupExample_basic
@@ -866,7 +864,7 @@ TF_ACC=1 go test -v ./internal/services/resource -run=TestAccResourceGroupExampl
 === CONT  TestAccResourceGroupExample_requiresImport
 --- PASS: TestAccResourceGroupExample_requiresImport (116.15s)
 PASS
-ok  	github.com/hashicorp/terraform-provider-azurerm/internal/services/resource	324.753s
+ok  	github.com/aoshfan/terraform-provider-customazurerm/internal/services/resource	324.753s
 ```
 
 ### Step 7: Add Documentation for this Resource
@@ -907,28 +905,28 @@ resource "azurerm_resource_group_example" "example" {
 
 The following arguments are supported:
 
-* `location` - (Required) The Azure Region where the Resource Group should exist. Changing this forces a new Resource Group to be created.
+- `location` - (Required) The Azure Region where the Resource Group should exist. Changing this forces a new Resource Group to be created.
 
-* `name` - (Required) The Name which should be used for this Resource Group. Changing this forces a new Resource Group to be created.
+- `name` - (Required) The Name which should be used for this Resource Group. Changing this forces a new Resource Group to be created.
 
 ---
 
-* `tags` - (Optional) A mapping of tags which should be assigned to the Resource Group.
+- `tags` - (Optional) A mapping of tags which should be assigned to the Resource Group.
 
 ## Attributes Reference
 
 In addition to the Arguments listed above - the following Attributes are exported:
 
-* `id` - The ID of the Resource Group.
+- `id` - The ID of the Resource Group.
 
 ## Timeouts
 
 The `timeouts` block allows you to specify [timeouts](https://www.terraform.io/language/resources/syntax#operation-timeouts) for certain actions:
 
-* `create` - (Defaults to 30 minutes) Used when creating the Resource Group.
-* `read` - (Defaults to 5 minutes) Used when retrieving the Resource Group.
-* `update` - (Defaults to 30 minutes) Used when updating the Resource Group.
-* `delete` - (Defaults to 30 minutes) Used when deleting the Resource Group.
+- `create` - (Defaults to 30 minutes) Used when creating the Resource Group.
+- `read` - (Defaults to 5 minutes) Used when retrieving the Resource Group.
+- `update` - (Defaults to 30 minutes) Used when updating the Resource Group.
+- `delete` - (Defaults to 30 minutes) Used when deleting the Resource Group.
 
 ## Import
 

@@ -11,7 +11,7 @@ else
 fi
 
 DATE="$(date '+%B %d, %Y')"
-PROVIDER_URL="https:\/\/github.com\/hashicorp\/terraform-provider-azurerm\/issues"
+PROVIDER_URL="https:\/\/github.com\/hashicorp\/terraform-provider-customazurerm\/issues"
 
 echo "Preparing changelog for release..."
 

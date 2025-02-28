@@ -3,7 +3,6 @@ layout: "azurerm"
 page_title: "Azure Resource Manager: 3.0 Upgrade Guide"
 description: |-
 Azure Resource Manager: 3.0 Upgrade Guide
-
 ---
 
 # AzureRM Provider
@@ -20,8 +19,8 @@ When upgrading to v3.0 of the AzureRM Provider, we recommend upgrading to the la
 
 If you're using [the AzureRM Backend](https://www.terraform.io/language/settings/backends/azurerm) you should also be aware that:
 
-* Version 1.1 of Terraform Core introduces support for Microsoft Graph (MSAL) authentication - although this is disabled by default and needs to be enabled using a feature flag (`use_microsoft_graph = true`), otherwise Azure Active Directory (ADAL) authentication is used.
-* In the future version 1.2 of Terraform Core will switch to using Microsoft Graph (MSAL) authentication by default (changing the default value of the feature flag `use_microsoft_graph` from `false` to `true`) - however note that this feature-flag will be removed in a future release of Terraform Core.
+- Version 1.1 of Terraform Core introduces support for Microsoft Graph (MSAL) authentication - although this is disabled by default and needs to be enabled using a feature flag (`use_microsoft_graph = true`), otherwise Azure Active Directory (ADAL) authentication is used.
+- In the future version 1.2 of Terraform Core will switch to using Microsoft Graph (MSAL) authentication by default (changing the default value of the feature flag `use_microsoft_graph` from `false` to `true`) - however note that this feature-flag will be removed in a future release of Terraform Core.
 
 ### Pinning your Provider Version
 
@@ -69,11 +68,11 @@ More information on [how to pin the version of a Terraform Provider being used c
 
 At a high level, version 3.0 includes the following changes:
 
-* [New Data Sources and Resources for App Service and Function Apps](#new-resources-and-data-sources-for-app-service)
-* [Soft Delete Recovery/Purging for Certificates, Keys, and Secrets](#soft-delete-for-key-vault)
-* [Switching to Microsoft Authentication Library (MSAL)](#switching-to-msal)
-* [Updates to existing behaviors for Application Gateway, API Management, Resource Groups, Storage, among others](#behavioural-updates)
-* [Removal of Deprecated Fields, Data Sources, and Resources](#removal-of-deprecated-fields-data-sources-and-resources)
+- [New Data Sources and Resources for App Service and Function Apps](#new-resources-and-data-sources-for-app-service)
+- [Soft Delete Recovery/Purging for Certificates, Keys, and Secrets](#soft-delete-for-key-vault)
+- [Switching to Microsoft Authentication Library (MSAL)](#switching-to-msal)
+- [Updates to existing behaviors for Application Gateway, API Management, Resource Groups, Storage, among others](#behavioural-updates)
+- [Removal of Deprecated Fields, Data Sources, and Resources](#removal-of-deprecated-fields-data-sources-and-resources)
 
 Each of these topics is covered in more detail below.
 
@@ -81,51 +80,51 @@ Each of these topics is covered in more detail below.
 
 While it’s possible to provision App Services and Function Apps in Terraform today, the design and behaviour of the App Service platform has evolved over the years. These resources require some refinement.
 
-Similar to the changes for Virtual Machines in v2.0 of the Azure Provider, we've introduced more granular resources for App Service to better represent the functionality available in Azure.  This is most noticeable in the separation of some resources into Linux and Windows variants. This separation is intended to facilitate improved validation and more intuitive configuration for their differing requirements and capabilities, which could previously be unclear or confusing in the respective singular resources.
+Similar to the changes for Virtual Machines in v2.0 of the Azure Provider, we've introduced more granular resources for App Service to better represent the functionality available in Azure. This is most noticeable in the separation of some resources into Linux and Windows variants. This separation is intended to facilitate improved validation and more intuitive configuration for their differing requirements and capabilities, which could previously be unclear or confusing in the respective singular resources.
 
 The following new **Data Sources** will be available:
 
-* [azurerm_linux_function_app](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/linux_function_app)
-* [azurerm_linux_web_app](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/linux_web_app)
-* [azurerm_service_plan](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/service_plan)
-* [azurerm_source_control_token](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/source_control_token)
-* [azurerm_windows_function_app](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/windows_function_app)
-* [azurerm_windows_web_app](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/windows_web_app)
+- [azurerm_linux_function_app](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/linux_function_app)
+- [azurerm_linux_web_app](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/linux_web_app)
+- [azurerm_service_plan](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/service_plan)
+- [azurerm_source_control_token](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/source_control_token)
+- [azurerm_windows_function_app](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/windows_function_app)
+- [azurerm_windows_web_app](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/windows_web_app)
 
 The following new **Resources** will be available:
 
-* [azurerm_app_service_source_control](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/app_service_source_control)
-  * New Resource to apply Source Control configuration to Web and Function Apps (for use with Linux and Windows based versions)
-* [azurerm_app_service_source_control_slot](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/app_service_source_control_slot)
-  * New Resource to apply Source Control configuration to Web and Function App Slots (for use with Linux and Windows based versions)
-* [azurerm_function_app_active_slot](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app_active_slot)
-  * Supersedes `azurerm_app_service_active_slot` for both Linux and Windows based Function Apps.
-* [azurerm_function_app_hybrid_connection](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app_hybrid_connection)
-  * Supersedes `azurerm_app_service_hybrid_connection` for Hybrid Connections on Linux and Windows based Web Apps
-* [azurerm_linux_function_app](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_function_app)
-  * Supersedes `azurerm_function_app` for Linux based Function Apps
-* [azurerm_linux_function_app_slot](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_function_app_slot)
-  * Supersedes `azurerm_function_app_slot` for Deployment Slots on Linux based Function Apps
-* [azurerm_linux_web_app](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_web_app)
-  * Supersedes `azurerm_app_service` for Linux based Web Apps
-* [azurerm_linux_web_app_slot](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_web_app_slot)
-  * Supersedes `azurerm_app_service_slot` for Deployment Slots on Linux based Web Apps
-* [azurerm_service_plan](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/service_plan)
-  * Supersedes `azurerm_app_service_plan`
-* [azurerm_source_control_token](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/source_control_token)
-  * Supersedes `azurerm_app_service_source_control_token`
-* [azurerm_web_app_active_slot](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/web_app_active_slot)
-  * Supersedes `azurerm_app_service_active_slot` for both Linux and Windows based Web Apps.
-* [azurerm_web_app_hybrid_connection](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/web_app_hybrid_connection)
-  * Supersedes `azurerm_app_service_hybrid_connection` for Hybrid Connections on Linux and Windows based Web Apps
-* [azurerm_windows_function_app](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/windows_function_app)
-  * Supersedes `azurerm_function_app` for Windows based Function Apps.
-* [azurerm_windows_function_app_slot](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/windows_function_app_slot)
-  * Supersedes `azurerm_function_app_slot` for Deployment Slots on Windows based Function Apps
-* [azurerm_windows_web_app](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/windows_web_app)
-  * Supersedes `azurerm_app_service` for Windows based Web Apps.
-* [azurerm_windows_web_app_slot](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/windows_web_app_slot)
-  * Supersedes `azurerm_app_service_slot` for Deployment Slots on Windows based Web Apps
+- [azurerm_app_service_source_control](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/app_service_source_control)
+  - New Resource to apply Source Control configuration to Web and Function Apps (for use with Linux and Windows based versions)
+- [azurerm_app_service_source_control_slot](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/app_service_source_control_slot)
+  - New Resource to apply Source Control configuration to Web and Function App Slots (for use with Linux and Windows based versions)
+- [azurerm_function_app_active_slot](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app_active_slot)
+  - Supersedes `azurerm_app_service_active_slot` for both Linux and Windows based Function Apps.
+- [azurerm_function_app_hybrid_connection](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app_hybrid_connection)
+  - Supersedes `azurerm_app_service_hybrid_connection` for Hybrid Connections on Linux and Windows based Web Apps
+- [azurerm_linux_function_app](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_function_app)
+  - Supersedes `azurerm_function_app` for Linux based Function Apps
+- [azurerm_linux_function_app_slot](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_function_app_slot)
+  - Supersedes `azurerm_function_app_slot` for Deployment Slots on Linux based Function Apps
+- [azurerm_linux_web_app](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_web_app)
+  - Supersedes `azurerm_app_service` for Linux based Web Apps
+- [azurerm_linux_web_app_slot](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_web_app_slot)
+  - Supersedes `azurerm_app_service_slot` for Deployment Slots on Linux based Web Apps
+- [azurerm_service_plan](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/service_plan)
+  - Supersedes `azurerm_app_service_plan`
+- [azurerm_source_control_token](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/source_control_token)
+  - Supersedes `azurerm_app_service_source_control_token`
+- [azurerm_web_app_active_slot](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/web_app_active_slot)
+  - Supersedes `azurerm_app_service_active_slot` for both Linux and Windows based Web Apps.
+- [azurerm_web_app_hybrid_connection](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/web_app_hybrid_connection)
+  - Supersedes `azurerm_app_service_hybrid_connection` for Hybrid Connections on Linux and Windows based Web Apps
+- [azurerm_windows_function_app](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/windows_function_app)
+  - Supersedes `azurerm_function_app` for Windows based Function Apps.
+- [azurerm_windows_function_app_slot](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/windows_function_app_slot)
+  - Supersedes `azurerm_function_app_slot` for Deployment Slots on Windows based Function Apps
+- [azurerm_windows_web_app](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/windows_web_app)
+  - Supersedes `azurerm_app_service` for Windows based Web Apps.
+- [azurerm_windows_web_app_slot](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/windows_web_app_slot)
+  - Supersedes `azurerm_app_service_slot` for Deployment Slots on Windows based Web Apps
 
 ## Migrating to New & Renamed Resources
 
@@ -175,15 +174,15 @@ Authentication to APIs such as Resource Manager was previously performed using t
 
 Zones will be made behaviourally consistent across the Provider, that means:
 
-* Where a resource has to be provisioned within a single Zone, the field will be renamed `zone` (to indicate that only a single Zone can be specified).
-* Where a resource can be provisioned across multiple Zones, the field will be named `zones`.
-* Zones are no longer Computed - this means that if you wish Azure to assign an Availability Zone for this resource automatically, you must use `ignore_changes` on the `zone`/`zones` field.
+- Where a resource has to be provisioned within a single Zone, the field will be renamed `zone` (to indicate that only a single Zone can be specified).
+- Where a resource can be provisioned across multiple Zones, the field will be named `zones`.
+- Zones are no longer Computed - this means that if you wish Azure to assign an Availability Zone for this resource automatically, you must use `ignore_changes` on the `zone`/`zones` field.
 
 When the resource can be provisioned across multiple Zones, the following behaviours apply:
 
-* To provision the resource without any Zones (zoneless) - omit the `zones` field.
-* To provision the resource in a single Zone, specify one zone for the `zones` field (e.g. `zones = ["1"]`)
-* To provision the resource across multiple Zones (Zone Redundant), specify all of Availability Zones for the `zones` field (e.g. `zones = ["1", "2", "3"]`)
+- To provision the resource without any Zones (zoneless) - omit the `zones` field.
+- To provision the resource in a single Zone, specify one zone for the `zones` field (e.g. `zones = ["1"]`)
+- To provision the resource across multiple Zones (Zone Redundant), specify all of Availability Zones for the `zones` field (e.g. `zones = ["1", "2", "3"]`)
 
 **Resources with a (Managed) `identity` block:** The presence of an `identity` block means a Managed Identity should be assigned to this Resource - and the omission of an `identity` block (or a null value) means that no Managed Identity should be assigned to this Resource.
 
@@ -203,10 +202,10 @@ When the resource can be provisioned across multiple Zones, the following behavi
 
 **Other Individual Resources:**
 
-* `azurerm_database_migration_service` - The provider will now delete this resource even if it still contains running tasks.
-* `azurerm_iothub` - When creating a new `azurerm_iothub` resource, a Fallback Route will be enabled by default.
-* `azurerm_mssql_database` - The new field `transparent_data_encryption_enabled` will be set to `true` and can not be disabled on servers with SKUs other than ones starting with `DW`.
-* `azurerm_storage_share` - The `quota` property is now required instead of defaulting to `5120` GB.
+- `azurerm_database_migration_service` - The provider will now delete this resource even if it still contains running tasks.
+- `azurerm_iothub` - When creating a new `azurerm_iothub` resource, a Fallback Route will be enabled by default.
+- `azurerm_mssql_database` - The new field `transparent_data_encryption_enabled` will be set to `true` and can not be disabled on servers with SKUs other than ones starting with `DW`.
+- `azurerm_storage_share` - The `quota` property is now required instead of defaulting to `5120` GB.
 
 ## Removal of Deprecated Fields, Data Sources and Resources
 
@@ -278,7 +277,7 @@ The deprecated block `addon_profile` will be removed in favour of the `azure_pol
 
 The field `availability_zones` will be removed in favour of `zones` to be consistent across the Provider.
 
-The field `user_assigned_identity_ids` within the `identity` block will be renamed to `identity_ids` to be consistent across the Provider - [see the dedicated issue on how Identity is changing in 3.0 for more information](https://github.com/hashicorp/terraform-provider-azurerm/issues/15187).
+The field `user_assigned_identity_ids` within the `identity` block will be renamed to `identity_ids` to be consistent across the Provider - [see the dedicated issue on how Identity is changing in 3.0 for more information](https://github.com/aoshfan/terraform-provider-customazurerm/issues/15187).
 
 The deprecated block `role_based_access_control` will be removed in favour of the `role_based_access_control_enabled` property and the `azure_active_directory_role_based_access_control` block.
 
@@ -300,7 +299,7 @@ The deprecated field `group_id` will be removed in favour of the `name` property
 
 ### Data Source: `azurerm_mssql_server`
 
-The field `user_assigned_identity_ids` within the `identity` block will be renamed to `identity_ids` to be consistent across the Provider - [see the dedicated issue on how Identity is changing in 3.0 for more information](https://github.com/hashicorp/terraform-provider-azurerm/issues/15187).
+The field `user_assigned_identity_ids` within the `identity` block will be renamed to `identity_ids` to be consistent across the Provider - [see the dedicated issue on how Identity is changing in 3.0 for more information](https://github.com/aoshfan/terraform-provider-customazurerm/issues/15187).
 
 ### Data Source: `azurerm_netapp_volume`
 
@@ -352,7 +351,7 @@ The field `probe.match.status_code` will become Required.
 
 The `azurerm_app_service` resource has been superseded by the `azurerm_linux_web_app` and `azurerm_windows_web_app` resources. Whilst this resource will continue to be available in the 2.x and 3.x releases it is feature-frozen for compatibility purposes, will no longer receive any updates and will be removed in a future major release of the Azure Provider.
 
-The `identity` block will be made consistent across the Provider - [see the dedicated issue on how Identity is changing in 3.0 for more information](https://github.com/hashicorp/terraform-provider-azurerm/issues/15187).
+The `identity` block will be made consistent across the Provider - [see the dedicated issue on how Identity is changing in 3.0 for more information](https://github.com/aoshfan/terraform-provider-customazurerm/issues/15187).
 
 The field `site_config.remote_debugging_version` will no longer accept the values `VS2012`, `VS2013` and `VS2015`.
 
@@ -380,7 +379,7 @@ The `azurerm_app_service_hybrid_connection` resource has been superseded by the 
 
 The `azurerm_app_service_slot` resource has been superseded by the `azurerm_linux_web_app_slot` and `azurerm_windows_web_app_slot` resources. Whilst this resource will continue to be available in the 2.x and 3.x releases it is feature-frozen for compatibility purposes, will no longer receive any updates and will be removed in a future major release of the Azure Provider.
 
-The `identity` block will be made consistent across the Provider - [see the dedicated issue on how Identity is changing in 3.0 for more information](https://github.com/hashicorp/terraform-provider-azurerm/issues/15187).
+The `identity` block will be made consistent across the Provider - [see the dedicated issue on how Identity is changing in 3.0 for more information](https://github.com/aoshfan/terraform-provider-customazurerm/issues/15187).
 
 The field `site_config.remote_debugging_version` will no longer accept the values `VS2012`, `VS2013` and `VS2015`.
 
@@ -736,7 +735,7 @@ The default value for the field `threat_intel_mode` will change from "Alert" to 
 
 The deprecated field `dns.network_rule_fqdn_enabled` will be removed since it is no longer supported by the Azure API.
 
-The field `user_assigned_identity_ids` within the `identity` block will be renamed to `identity_ids` to be consistent across the Provider - [see the dedicated issue on how Identity is changing in 3.0 for more information](https://github.com/hashicorp/terraform-provider-azurerm/issues/15187).
+The field `user_assigned_identity_ids` within the `identity` block will be renamed to `identity_ids` to be consistent across the Provider - [see the dedicated issue on how Identity is changing in 3.0 for more information](https://github.com/aoshfan/terraform-provider-customazurerm/issues/15187).
 
 The computed field `principal_id` within the `identity` block will be removed as this isn't applicable for this resource.
 
@@ -758,7 +757,7 @@ The default value for the field `negate_condition` will change from `true` to `f
 
 The `azurerm_function_app` resource has been superseded by the `azurerm_linux_function_app` and `azurerm_windows_function_app` resources. Whilst this resource will continue to be available in the 2.x and 3.x releases it is feature-frozen for compatibility purposes, will no longer receive any updates and will be removed in a future major release of the Azure Provider.
 
-The `identity` block will be made consistent across the Provider - [see the dedicated issue on how Identity is changing in 3.0 for more information](https://github.com/hashicorp/terraform-provider-azurerm/issues/15187).
+The `identity` block will be made consistent across the Provider - [see the dedicated issue on how Identity is changing in 3.0 for more information](https://github.com/aoshfan/terraform-provider-customazurerm/issues/15187).
 
 The deprecated field `client_affinity_enabled` will be removed since it is no longer configurable.
 
@@ -776,7 +775,7 @@ The deprecated field `master_key` will be removed in favour of the `primary_key`
 
 The `azurerm_function_app_slot` resource has been superseded by the `azurerm_linux_function_app_slot` and `azurerm_windows_function_app_slot` resources. Whilst this resource will continue to be available in the 2.x and 3.x releases it is feature-frozen for compatibility purposes, will no longer receive any updates and will be removed in a future major release of the Azure Provider.
 
-The `identity` block will be made consistent across the Provider - [see the dedicated issue on how Identity is changing in 3.0 for more information](https://github.com/hashicorp/terraform-provider-azurerm/issues/15187).
+The `identity` block will be made consistent across the Provider - [see the dedicated issue on how Identity is changing in 3.0 for more information](https://github.com/aoshfan/terraform-provider-customazurerm/issues/15187).
 
 The deprecated field `client_affinity_enabled` will be removed since it is no longer configurable.
 
@@ -906,7 +905,7 @@ The casing on the values for the `storage_permissions` field have been updated t
 
 ### Resource: `azurerm_key_vault_certificate`
 
-The field `x509_certificate_properties[0].key_usage`  will be moved from a List to a Set, meaning that the order of these items no longer matters. Note that if you're referencing these nested items within your Terraform Configuration, then this may require some code changes.
+The field `x509_certificate_properties[0].key_usage` will be moved from a List to a Set, meaning that the order of these items no longer matters. Note that if you're referencing these nested items within your Terraform Configuration, then this may require some code changes.
 
 ### Resource: `azurerm_key_vault_key`
 
@@ -954,7 +953,7 @@ The deprecated field `private_link_enabled` will be removed in favour of the `pr
 
 The deprecated block `role_based_access_control` will be removed in favour of the property `role_based_access_control_enabled` and the block `azure_active_directory_role_based_access_control`.
 
-The field `user_assigned_identity_ids` within the `identity` block will be renamed to `identity_ids` to be consistent across the Provider - [see the dedicated issue on how Identity is changing in 3.0 for more information](https://github.com/hashicorp/terraform-provider-azurerm/issues/15187).
+The field `user_assigned_identity_ids` within the `identity` block will be renamed to `identity_ids` to be consistent across the Provider - [see the dedicated issue on how Identity is changing in 3.0 for more information](https://github.com/aoshfan/terraform-provider-customazurerm/issues/15187).
 
 ### Resource: `azurerm_kubernetes_cluster_node_pool`
 
@@ -1034,31 +1033,31 @@ The field `sku_name` no longer accepts the value `Enterprise` ([more information
 
 ### Resource `azurerm_machine_learning_compute_cluster`
 
-The `identity` block will be made consistent across the Provider - [see the dedicated issue on how Identity is changing in 3.0 for more information](https://github.com/hashicorp/terraform-provider-azurerm/issues/15187).
+The `identity` block will be made consistent across the Provider - [see the dedicated issue on how Identity is changing in 3.0 for more information](https://github.com/aoshfan/terraform-provider-customazurerm/issues/15187).
 
 The `type` field within the `identity` block now requires that the value `SystemAssigned,UserAssigned` is `SystemAssigned, UserAssigned` to be consistent with other identity blocks.
 
 ### Resource `azurerm_machine_learning_compute_instance`
 
-The `identity` block will be made consistent across the Provider - [see the dedicated issue on how Identity is changing in 3.0 for more information](https://github.com/hashicorp/terraform-provider-azurerm/issues/15187).
+The `identity` block will be made consistent across the Provider - [see the dedicated issue on how Identity is changing in 3.0 for more information](https://github.com/aoshfan/terraform-provider-customazurerm/issues/15187).
 
 The `type` field within the `identity` block now requires that the value `SystemAssigned,UserAssigned` is `SystemAssigned, UserAssigned` to be consistent with other identity blocks.
 
 ### Resource `azurerm_machine_learning_inference_cluster`
 
-The `identity` block will be made consistent across the Provider - [see the dedicated issue on how Identity is changing in 3.0 for more information](https://github.com/hashicorp/terraform-provider-azurerm/issues/15187).
+The `identity` block will be made consistent across the Provider - [see the dedicated issue on how Identity is changing in 3.0 for more information](https://github.com/aoshfan/terraform-provider-customazurerm/issues/15187).
 
 The `type` field within the `identity` block now requires that the value `SystemAssigned,UserAssigned` is `SystemAssigned, UserAssigned` to be consistent with other identity blocks.
 
 ### Resource `azurerm_machine_learning_synapse_spark`
 
-The `identity` block will be made consistent across the Provider - [see the dedicated issue on how Identity is changing in 3.0 for more information](https://github.com/hashicorp/terraform-provider-azurerm/issues/15187).
+The `identity` block will be made consistent across the Provider - [see the dedicated issue on how Identity is changing in 3.0 for more information](https://github.com/aoshfan/terraform-provider-customazurerm/issues/15187).
 
 The `type` field within the `identity` block now requires that the value `SystemAssigned,UserAssigned` is `SystemAssigned, UserAssigned` to be consistent with other identity blocks.
 
 ### Resource `azurerm_machine_learning_workspace`
 
-The `identity` block will be made consistent across the Provider - [see the dedicated issue on how Identity is changing in 3.0 for more information](https://github.com/hashicorp/terraform-provider-azurerm/issues/15187).
+The `identity` block will be made consistent across the Provider - [see the dedicated issue on how Identity is changing in 3.0 for more information](https://github.com/aoshfan/terraform-provider-customazurerm/issues/15187).
 
 ### Resource: `azurerm_management_group`
 
@@ -1092,7 +1091,7 @@ The deprecated block `extended_auditing_policy` will be removed and replaced by 
 
 The default value of the field `minimum_tls_version` will be set to `1.2`.
 
-The field `user_assigned_identity_ids` within the `identity` block will be renamed to `identity_ids` to be consistent across the Provider - [see the dedicated issue on how Identity is changing in 3.0 for more information](https://github.com/hashicorp/terraform-provider-azurerm/issues/15187).
+The field `user_assigned_identity_ids` within the `identity` block will be renamed to `identity_ids` to be consistent across the Provider - [see the dedicated issue on how Identity is changing in 3.0 for more information](https://github.com/aoshfan/terraform-provider-customazurerm/issues/15187).
 
 ### Resource: `azurerm_mysql_server`
 
@@ -1204,7 +1203,7 @@ The fields `availability_zone` and `zones` will be consolidated into `zones`.
 
 The deprecated field `sku_name` will be removed since this property can no longer be specified on create/update.
 
-The `identity` block is now required to be consistent across the Provider - [see the dedicated issue on how Identity is changing in 3.0 for more information](https://github.com/hashicorp/terraform-provider-azurerm/issues/15187). You will need to add:
+The `identity` block is now required to be consistent across the Provider - [see the dedicated issue on how Identity is changing in 3.0 for more information](https://github.com/aoshfan/terraform-provider-customazurerm/issues/15187). You will need to add:
 
 ```hcl
 resource "azurerm_purview_account" "example" {
@@ -1360,7 +1359,7 @@ The field `allow_blob_public_access` will be removed in favour of the `allow_nes
 
 The field `customer_managed_key` is no longer Computed - this means that if you wish to manage CMK via the `azurerm_storage_account_customer_managed_key` resource, you must use `ignore_changes` on the `customer_managed_key` field.
 
-The `identity` block will be made consistent across the Provider - [see the dedicated issue on how Identity is changing in 3.0 for more information](https://github.com/hashicorp/terraform-provider-azurerm/issues/15187).
+The `identity` block will be made consistent across the Provider - [see the dedicated issue on how Identity is changing in 3.0 for more information](https://github.com/aoshfan/terraform-provider-customazurerm/issues/15187).
 
 The `type` field within the `identity` block now requires that the value `SystemAssigned,UserAssigned` is `SystemAssigned, UserAssigned` to be consistent with other identity blocks.
 
@@ -1404,7 +1403,7 @@ The field `spark_version` will no longer accept the value `3.0`.
 
 ### Resource: `azurerm_synapse_workspace`
 
-The `identity` block is now required to be consistent across the Provider - [see the dedicated issue on how Identity is changing in 3.0 for more information](https://github.com/hashicorp/terraform-provider-azurerm/issues/15187). You will need to add:
+The `identity` block is now required to be consistent across the Provider - [see the dedicated issue on how Identity is changing in 3.0 for more information](https://github.com/aoshfan/terraform-provider-customazurerm/issues/15187). You will need to add:
 
 ```hcl
 resource "azurerm_synapse_workspace" "example" {
@@ -1472,10 +1471,9 @@ The deprecated field `data_disk.disk_iops_read_write` will be removed in favour 
 
 The deprecated field `data_disk.disk_mbps_read_write` will be removed in favour of the `data_disk.ultra_ssd_disk_mbps_read_write` property.
 
-
 ## Case Sensitivity Changes
 
-  3.0 and above of the provider has moved towards requiring the constant casing match the Azure API specifications casing to avoid issues within Terraform Core which requires that the planned values matches the result of the applied values. This is required since the Azure API and SDKs sometimes case these values differently and terraform requires them to match.
+3.0 and above of the provider has moved towards requiring the constant casing match the Azure API specifications casing to avoid issues within Terraform Core which requires that the planned values matches the result of the applied values. This is required since the Azure API and SDKs sometimes case these values differently and terraform requires them to match.
 
 ### Resource: `azurerm_analysis_services_server`
 
@@ -1483,316 +1481,316 @@ The `type` property is now case-sensitive.
 
 ### Resource: `azurerm_analysis_services_server`
 
-The  `runbook_type` property is now case-sensitive.
+The `runbook_type` property is now case-sensitive.
 
 ### Resource: `azurerm_automation_runbook`
 
-The  `frequency` property is now case-sensitive.
+The `frequency` property is now case-sensitive.
 
 ### Resource: `azurerm_automation_schedule`
 
-The  `action` property is now case-sensitive.
+The `action` property is now case-sensitive.
 
 ### Resource: `azurerm_cdn_endpoint`
 
-The  `sku` property is now case-sensitive.
+The `sku` property is now case-sensitive.
 
 ### Resource: `azurerm_cdn_profile`
 
-The  `os_type` property is now case-sensitive.
+The `os_type` property is now case-sensitive.
 
 ### Resource: `azurerm_image`
 
-The  `os_type` property is now case-sensitive.
+The `os_type` property is now case-sensitive.
 
 ### Resource: `azurerm_managed_disk`
 
-The  `create_option` property is now case-sensitive.
+The `create_option` property is now case-sensitive.
 
 ### Resource: `azurerm_snapshot`
 
-The  `caching` property is now case-sensitive.
+The `caching` property is now case-sensitive.
 
 ### Resource: `azurerm_virtual_machine_data_disk_attachment`
 
-The  `license_type` property is now case-sensitive.
+The `license_type` property is now case-sensitive.
 
 ### Resource: `azurerm_virtual_machine`
 
-The  `license_type` property is now case-sensitive.
+The `license_type` property is now case-sensitive.
 
 ### Resource: `azurerm_virtual_machine_scale_set`
 
-The  `ip_address_type` property is now case-sensitive.
+The `ip_address_type` property is now case-sensitive.
 
 ### Resource: `azurerm_container_group`
 
-The  `sku` property is now case-sensitive.
+The `sku` property is now case-sensitive.
 
 ### Resource: `azurerm_container_registry`
 
-The  `load_balancer_sku` property is now case-sensitive.
+The `load_balancer_sku` property is now case-sensitive.
 
 ### Resource: `azurerm_kubernetes_cluster`
 
-The  `offer_type` property is now case-sensitive.
+The `offer_type` property is now case-sensitive.
 
 ### Resource: `azurerm_cosmosdb_account`
 
-The  `tier` property is now case-sensitive.
+The `tier` property is now case-sensitive.
 
 ### Resource: `azurerm_data_lake_analytics_account`
 
-The  `tier` property is now case-sensitive.
+The `tier` property is now case-sensitive.
 
 ### Resource: `azurerm_data_lake_store`
 
-The  `tag` property is now case-sensitive.
+The `tag` property is now case-sensitive.
 
 ### Resource: `azurerm_dns_caa_record`
 
-The  `sku` property is now case-sensitive.
+The `sku` property is now case-sensitive.
 
 ### Resource: `azurerm_eventhub_namespace`
 
-The  `encoding` property is now case-sensitive.
+The `encoding` property is now case-sensitive.
 
 ### Resource: `azurerm_eventhub`
 
-The  `protocol` property is now case-sensitive.
+The `protocol` property is now case-sensitive.
 
 ### Resource: `azurerm_firewall_policy`
 
-The  `vm_size` property is now case-sensitive.
+The `vm_size` property is now case-sensitive.
 
 ### Resource: `azurerm_iotcentral_application_resource`
 
-The  `sku` property is now case-sensitive.
+The `sku` property is now case-sensitive.
 
 ### Resource: `azurerm_iotcentral_application`
 
-The  `encoding` property is now case-sensitive.
+The `encoding` property is now case-sensitive.
 
 ### Resource: `azurerm_iothub_endpoint_storage_container`
 
-The  `encoding` property is now case-sensitive.
+The `encoding` property is now case-sensitive.
 
 ### Resource: `azurerm_iothub`
 
-The  `key_type` property is now case-sensitive.
+The `key_type` property is now case-sensitive.
 
 ### Resource: `azurerm_key_vault_certificate`
 
-The  `sku` property is now case-sensitive.
+The `sku` property is now case-sensitive.
 
 ### Resource: `azurerm_lb`
 
-The  `protocol` property is now case-sensitive.
+The `protocol` property is now case-sensitive.
 
 ### Resource: `azurerm_lb`
 
-The  `event_types` property is now case-sensitive.
+The `event_types` property is now case-sensitive.
 
 ### Resource: `azurerm_log_analytics_datasource_windows_event`
 
-The  `secondary_shared_key` property is now case-sensitive.
+The `secondary_shared_key` property is now case-sensitive.
 
 ### Resource: `azurerm_log_analytics_workspace`
 
-The  `frequency` property is now case-sensitive.
+The `frequency` property is now case-sensitive.
 
 ### Resource: `azurerm_logic_app_integration_account_batch_configuration`
 
-The  `type` property is now case-sensitive.
+The `type` property is now case-sensitive.
 
 ### Resource: `azurerm_logic_app_standard`
 
-The  `billing_cycle` property is now case-sensitive.
+The `billing_cycle` property is now case-sensitive.
 
 ### Resource: `azurerm_logz_monitor`
 
-The  `sku_name` property is now case-sensitive.
+The `sku_name` property is now case-sensitive.
 
 ### Resource: `azurerm_machine_learning_workspace`
 
-The  `storage_authentication_type` property is now case-sensitive.
+The `storage_authentication_type` property is now case-sensitive.
 
 ### Resource: `azurerm_media_services_account`
 
-The  `statistic` property is now case-sensitive.
+The `statistic` property is now case-sensitive.
 
 ### Resource: `azurerm_monitor_autoscale_setting`
 
-The  `sku_name` property is now case-sensitive.
+The `sku_name` property is now case-sensitive.
 
 ### Resource: `azurerm_mssql_database`
 
-The  `name` property is now case-sensitive.
+The `name` property is now case-sensitive.
 
 ### Resource: `azurerm_mssql_elasticpool`
 
-The  `state` property is now case-sensitive.
+The `state` property is now case-sensitive.
 
 ### Resource: `azurerm_mssql_server_security_alert_policy`
 
-The  `ssl_enforcement` property is now case-sensitive.
+The `ssl_enforcement` property is now case-sensitive.
 
 ### Resource: `azurerm_mysql_server`
 
-The  `protocol` property is now case-sensitive.
+The `protocol` property is now case-sensitive.
 
 ### Resource: `azurerm_application_gateway`
 
-The  `tier` property is now case-sensitive.
+The `tier` property is now case-sensitive.
 
 ### Resource: `azurerm_express_route_circuit`
 
-The  `private_ip_address_allocation` property is now case-sensitive.
+The `private_ip_address_allocation` property is now case-sensitive.
 
 ### Resource: `azurerm_network_interface`
 
-The  `protocol` property is now case-sensitive.
+The `protocol` property is now case-sensitive.
 
 ### Resource: `azurerm_network_security_group`
 
-The  `protocol` property is now case-sensitive.
+The `protocol` property is now case-sensitive.
 
 ### Resource: `azurerm_network_security_rule`
 
-The  `ip_version` property is now case-sensitive.
+The `ip_version` property is now case-sensitive.
 
 ### Resource: `azurerm_public_ip_prefix`
 
-The  `ip_version` property is now case-sensitive.
+The `ip_version` property is now case-sensitive.
 
 ### Resource: `azurerm_public_ip`
 
-The  `next_hop_type` property is now case-sensitive.
+The `next_hop_type` property is now case-sensitive.
 
 ### Resource: `azurerm_route`
 
-The  `next_hop_type` property is now case-sensitive.
+The `next_hop_type` property is now case-sensitive.
 
 ### Resource: `azurerm_route_table`
 
-The  `type` property is now case-sensitive.
+The `type` property is now case-sensitive.
 
 ### Resource: `azurerm_virtual_network_gateway_connection`
 
-The  `type` property is now case-sensitive.
+The `type` property is now case-sensitive.
 
 ### Resource: `azurerm_virtual_network_gateway`
 
-The  `namespace_type` property is now case-sensitive.
+The `namespace_type` property is now case-sensitive.
 
 ### Resource: `azurerm_notification_hub_namespace`
 
-The  `policy_type` property is now case-sensitive.
+The `policy_type` property is now case-sensitive.
 
 ### Resource: `azurerm_policy_definition`
 
-The  `version` property is now case-sensitive.
+The `version` property is now case-sensitive.
 
 ### Resource: `azurerm_postgresql_server`
 
-The  `weeks` property is now case-sensitive.
+The `weeks` property is now case-sensitive.
 
 ### Resource: `azurerm_backup_policy_file_share`
 
-The  `frequency` property is now case-sensitive.
+The `frequency` property is now case-sensitive.
 
 ### Resource: `azurerm_backup_policy_vm`
 
-The  `sku` property is now case-sensitive.
+The `sku` property is now case-sensitive.
 
 ### Resource: `azurerm_recovery_services_vault`
 
-The  `target_disk_type` property is now case-sensitive.
+The `target_disk_type` property is now case-sensitive.
 
 ### Resource: `azurerm_site_recovery_replicated_vm`
 
-The  `sku_name` property is now case-sensitive.
+The `sku_name` property is now case-sensitive.
 
 ### Resource: `azurerm_redis_cache`
 
-The  `deployment_mode` property is now case-sensitive.
+The `deployment_mode` property is now case-sensitive.
 
 ### Resource: `azurerm_template_deployment`
 
-The  `type` property is now case-sensitive.
+The `type` property is now case-sensitive.
 
 ### Resource: `azurerm_security_center_automation`
 
-The  `sku` property is now case-sensitive.
+The `sku` property is now case-sensitive.
 
 ### Resource: `azurerm_servicebus_namespace`
 
-The  `filter_type` property is now case-sensitive.
+The `filter_type` property is now case-sensitive.
 
 ### Resource: `azurerm_servicebus_subscription_rule`
 
-The  `status` property is now case-sensitive.
+The `status` property is now case-sensitive.
 
 ### Resource: `azurerm_servicebus_topic`
 
-The  `create_mode` property is now case-sensitive.
+The `create_mode` property is now case-sensitive.
 
 ### Resource: `azurerm_sql_database`
 
-The  `license_type` property is now case-sensitive.
+The `license_type` property is now case-sensitive.
 
 ### Resource: `azurerm_sql_managed_instance`
 
-The  `disabled_alerts` property is now case-sensitive.
+The `disabled_alerts` property is now case-sensitive.
 
 ### Resource: `azurerm_sql_server`
 
-The  `account_kind` property is now case-sensitive.
+The `account_kind` property is now case-sensitive.
 
 ### Resource: `azurerm_storage_account`
 
-The  `policy_state` property is now case-sensitive.
+The `policy_state` property is now case-sensitive.
 
 ### Resource: `azurerm_synapse_sql_pool_security_alert_policy`
 
-The  `policy_state` property is now case-sensitive.
+The `policy_state` property is now case-sensitive.
 
 ### Resource: `azurerm_synapse_workspace_security_alert_policy`
 
-The  `type` property is now case-sensitive.
+The `type` property is now case-sensitive.
 
 ### Resource: `azurerm_traffic_manager_endpoint`
 
-The  `profile_status` property is now case-sensitive.
+The `profile_status` property is now case-sensitive.
 
 ### Resource: `azurerm_traffic_manager_profile`
 
-The  `type` property is now case-sensitive.
+The `type` property is now case-sensitive.
 
 ### Resource: `azurerm_traffic_manager_profile`
 
-The  `product_type` property is now case-sensitive.
+The `product_type` property is now case-sensitive.
 
 ### Resource: `azurerm_app_service_certificate_order`
 
-The  `kind` property is now case-sensitive.
+The `kind` property is now case-sensitive.
 
 ### Resource: `azurerm_app_service_plan`
 
-The  `type` property is now case-sensitive.
+The `type` property is now case-sensitive.
 
 ### Resource: `azurerm_app_service`
 
-The  `type` property is now case-sensitive.
+The `type` property is now case-sensitive.
 
 ### Resource: `azurerm_app_service_slot`
 
-The  `dotnet_framework_version` property is now case-sensitive.
+The `dotnet_framework_version` property is now case-sensitive.
 
 ### Resource: `azurerm_app_service_slot`
 
-The  `type` property is now case-sensitive.
+The `type` property is now case-sensitive.
 
 ### Resource: `azurerm_function_app`
 
-The  `type` property is now case-sensitive.
+The `type` property is now case-sensitive.

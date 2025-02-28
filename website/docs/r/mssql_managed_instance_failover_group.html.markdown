@@ -12,7 +12,7 @@ Manages an Azure SQL Managed Instance Failover Group.
 
 ## Example Usage
 
--> **Note:** For a more complete example, see the [`./examples/sql-azure/managed_instance_failover_group` directory](https://github.com/hashicorp/terraform-provider-azurerm/tree/main/examples/sql-azure/managed_instance_failover_group) within the GitHub Repository.
+-> **Note:** For a more complete example, see the [`./examples/sql-azure/managed_instance_failover_group` directory](https://github.com/aoshfan/terraform-provider-customazurerm/tree/main/examples/sql-azure/managed_instance_failover_group) within the GitHub Repository.
 
 ```hcl
 locals {
@@ -228,54 +228,54 @@ resource "azurerm_virtual_network_peering" "failover_to_primary" {
 
 The following arguments are supported:
 
-* `name` - (Required) The name which should be used for this Managed Instance Failover Group. Changing this forces a new resource to be created.
+- `name` - (Required) The name which should be used for this Managed Instance Failover Group. Changing this forces a new resource to be created.
 
-* `location` - (Required) The Azure Region where the Managed Instance Failover Group should exist. Changing this forces a new resource to be created.
+- `location` - (Required) The Azure Region where the Managed Instance Failover Group should exist. Changing this forces a new resource to be created.
 
-* `managed_instance_id` - (Required) The ID of the Azure SQL Managed Instance which will be replicated using a Managed Instance Failover Group. Changing this forces a new resource to be created.
+- `managed_instance_id` - (Required) The ID of the Azure SQL Managed Instance which will be replicated using a Managed Instance Failover Group. Changing this forces a new resource to be created.
 
-* `partner_managed_instance_id` - (Required) The ID of the Azure SQL Managed Instance which will be replicated to. Changing this forces a new resource to be created.
+- `partner_managed_instance_id` - (Required) The ID of the Azure SQL Managed Instance which will be replicated to. Changing this forces a new resource to be created.
 
-* `read_write_endpoint_failover_policy` - (Required) A `read_write_endpoint_failover_policy` block as defined below.
+- `read_write_endpoint_failover_policy` - (Required) A `read_write_endpoint_failover_policy` block as defined below.
 
-* `readonly_endpoint_failover_policy_enabled` - (Optional) Failover policy for the read-only endpoint. Defaults to `true`.
+- `readonly_endpoint_failover_policy_enabled` - (Optional) Failover policy for the read-only endpoint. Defaults to `true`.
 
-* `secondary_type` - (Optional) The type of the secondary Managed Instance. Possible values are `Geo`, `Standby`. Defaults to `Geo`.
+- `secondary_type` - (Optional) The type of the secondary Managed Instance. Possible values are `Geo`, `Standby`. Defaults to `Geo`.
 
 ---
 
 A `read_write_endpoint_failover_policy` block supports the following:
 
-* `mode` - (Required) The failover mode. Possible values are `Automatic` or `Manual`.
+- `mode` - (Required) The failover mode. Possible values are `Automatic` or `Manual`.
 
-* `grace_minutes` - (Optional) Applies only if `mode` is `Automatic`. The grace period in minutes before failover with data loss is attempted.
+- `grace_minutes` - (Optional) Applies only if `mode` is `Automatic`. The grace period in minutes before failover with data loss is attempted.
 
 ## Attributes Reference
 
 In addition to the Arguments listed above - the following Attributes are exported:
 
-* `id` - The ID of the Managed Instance Failover Group.
+- `id` - The ID of the Managed Instance Failover Group.
 
-* `partner_region` - A `partner_region` block as defined below.
+- `partner_region` - A `partner_region` block as defined below.
 
-* `role` - The local replication role of the Managed Instance Failover Group.
+- `role` - The local replication role of the Managed Instance Failover Group.
 
 ---
 
 A `partner_region` block exports the following:
 
-* `location` - The Azure Region where the Managed Instance Failover Group partner exists.
+- `location` - The Azure Region where the Managed Instance Failover Group partner exists.
 
-* `role` - The partner replication role of the Managed Instance Failover Group.
+- `role` - The partner replication role of the Managed Instance Failover Group.
 
 ## Timeouts
 
 The `timeouts` block allows you to specify [timeouts](https://www.terraform.io/language/resources/syntax#operation-timeouts) for certain actions:
 
-* `create` - (Defaults to 30 minutes) Used when creating the Managed Instance Failover Group.
-* `read` - (Defaults to 5 minutes) Used when retrieving the Managed Instance Failover Group.
-* `update` - (Defaults to 30 minutes) Used when updating the Managed Instance Failover Group.
-* `delete` - (Defaults to 30 minutes) Used when deleting the Managed Instance Failover Group.
+- `create` - (Defaults to 30 minutes) Used when creating the Managed Instance Failover Group.
+- `read` - (Defaults to 5 minutes) Used when retrieving the Managed Instance Failover Group.
+- `update` - (Defaults to 30 minutes) Used when updating the Managed Instance Failover Group.
+- `delete` - (Defaults to 30 minutes) Used when deleting the Managed Instance Failover Group.
 
 ## Import
 

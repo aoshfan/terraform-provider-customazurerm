@@ -62,7 +62,7 @@ func (r NatGatewayPublicIpAssociation) Create() sdk.ResourceFunc {
     if err != nil {
 		return err
     }
-    
+
     natGatewayId, err := natgateways.ParseNatGatewayID(d.Get("nat_gateway_id").(string))
     if err != nil {
         return err
@@ -87,7 +87,7 @@ func (r NatGatewayPublicIpAssociation) Read() sdk.ResourceFunc {
 
 ## Generated Resource ID Parsers and Validators (legacy)
 
-Prior to generating the parser and validation functions within the SDK, we generated these functions in the provider with [this automation](https://github.com/hashicorp/terraform-provider-azurerm/tree/main/internal/tools/generator-resource-id) which generates the functions for all IDs defined in `resourceids.go`.
+Prior to generating the parser and validation functions within the SDK, we generated these functions in the provider with [this automation](https://github.com/aoshfan/terraform-provider-customazurerm/tree/main/internal/tools/generator-resource-id) which generates the functions for all IDs defined in `resourceids.go`.
 
 An example of this is shown below:
 
@@ -101,9 +101,8 @@ In this case, you need to specify the `name` of the Resource (in this case `Reso
 
 Running `make generate` - will output the following files:
 
-* `./internal/service/resource/parse/resource_group_example.go` - contains the Resource ID Struct, Formatter and Parser.
-* `./internal/service/resource/parse/resource_group_example_test.go` - contains tests for those ^.
-* `./internal/service/resource/validate/resource_group_example_id.go` - contains Terraform validation functions for the Resource ID.
+- `./internal/service/resource/parse/resource_group_example.go` - contains the Resource ID Struct, Formatter and Parser.
+- `./internal/service/resource/parse/resource_group_example_test.go` - contains tests for those ^.
+- `./internal/service/resource/validate/resource_group_example_id.go` - contains Terraform validation functions for the Resource ID.
 
 > **Note:** This is an outdated way of handling resource IDs in the provider and is being phased out. This method should only be used in exceptional cases.
-

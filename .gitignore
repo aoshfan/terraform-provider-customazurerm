@@ -1,3 +1,4 @@
+.history
 *.dll
 *.exe
 .DS_Store
@@ -48,7 +49,7 @@ examples/**/terraform
 examples/**/terraform.zip
 
 # never upload the build to git
-terraform-provider-azurerm
+terraform-provider-customazurerm
 tf.zip
 
 # do not upload secrets

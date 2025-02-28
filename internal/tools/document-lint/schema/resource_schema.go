@@ -6,12 +6,12 @@ package schema
 import (
 	"strings"
 
+	"github.com/aoshfan/terraform-provider-customazurerm/internal/sdk"
+	"github.com/aoshfan/terraform-provider-customazurerm/internal/tools/document-lint/util"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/hashicorp/terraform-provider-azurerm/internal/sdk"
-	"github.com/hashicorp/terraform-provider-azurerm/internal/tools/document-lint/util"
 )
 
-// FileForResource for typed sdk resource, the file is terraform-provider-azurerm/internal/sdk/wrapper_resource.go
+// FileForResource for typed sdk resource, the file is terraform-provider-customazurerm/internal/sdk/wrapper_resource.go
 func FileForResource(funcs ...interface{}) (file string) {
 	for _, fn := range funcs {
 		if file, _ = util.FuncFileLine(fn); file != "" {

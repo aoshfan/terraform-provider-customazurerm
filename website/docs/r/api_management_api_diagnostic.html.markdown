@@ -49,7 +49,7 @@ resource "azurerm_api_management_api" "example" {
 
   import {
     content_format = "swagger-link-json"
-    content_value  = "https://raw.githubusercontent.com/hashicorp/terraform-provider-azurerm/refs/heads/main/internal/services/apimanagement/testdata/api_management_api_swagger.json"
+    content_value  = "https://raw.githubusercontent.com/aoshfan/terraform-provider-customazurerm/refs/heads/main/internal/services/apimanagement/testdata/api_management_api_swagger.json"
   }
 }
 
@@ -118,78 +118,78 @@ resource "azurerm_api_management_api_diagnostic" "example" {
 
 The following arguments are supported:
 
-* `api_management_logger_id` - (Required) The ID (name) of the Diagnostics Logger.
+- `api_management_logger_id` - (Required) The ID (name) of the Diagnostics Logger.
 
-* `api_management_name` - (Required) The name of the API Management Service instance. Changing this forces a new API Management Service API Diagnostics Logs to be created.
+- `api_management_name` - (Required) The name of the API Management Service instance. Changing this forces a new API Management Service API Diagnostics Logs to be created.
 
-* `api_name` - (Required) The name of the API on which to configure the Diagnostics Logs. Changing this forces a new API Management Service API Diagnostics Logs to be created.
+- `api_name` - (Required) The name of the API on which to configure the Diagnostics Logs. Changing this forces a new API Management Service API Diagnostics Logs to be created.
 
-* `identifier` - (Required) Identifier of the Diagnostics Logs. Possible values are `applicationinsights` and `azuremonitor`. Changing this forces a new API Management Service API Diagnostics Logs to be created.
+- `identifier` - (Required) Identifier of the Diagnostics Logs. Possible values are `applicationinsights` and `azuremonitor`. Changing this forces a new API Management Service API Diagnostics Logs to be created.
 
-* `resource_group_name` - (Required) The name of the Resource Group where the API Management Service API Diagnostics Logs should exist. Changing this forces a new API Management Service API Diagnostics Logs to be created.
+- `resource_group_name` - (Required) The name of the Resource Group where the API Management Service API Diagnostics Logs should exist. Changing this forces a new API Management Service API Diagnostics Logs to be created.
 
 ---
 
-* `always_log_errors` - (Optional) Always log errors. Send telemetry if there is an erroneous condition, regardless of sampling settings.
+- `always_log_errors` - (Optional) Always log errors. Send telemetry if there is an erroneous condition, regardless of sampling settings.
 
-* `backend_request` - (Optional) A `backend_request` block as defined below.
+- `backend_request` - (Optional) A `backend_request` block as defined below.
 
-* `backend_response` - (Optional) A `backend_response` block as defined below.
+- `backend_response` - (Optional) A `backend_response` block as defined below.
 
-* `frontend_request` - (Optional) A `frontend_request` block as defined below.
+- `frontend_request` - (Optional) A `frontend_request` block as defined below.
 
-* `frontend_response` - (Optional) A `frontend_response` block as defined below.
+- `frontend_response` - (Optional) A `frontend_response` block as defined below.
 
-* `http_correlation_protocol` - (Optional) The HTTP Correlation Protocol to use. Possible values are `None`, `Legacy` or `W3C`.
+- `http_correlation_protocol` - (Optional) The HTTP Correlation Protocol to use. Possible values are `None`, `Legacy` or `W3C`.
 
-* `log_client_ip` - (Optional) Log client IP address.
+- `log_client_ip` - (Optional) Log client IP address.
 
-* `sampling_percentage` - (Optional) Sampling (%). For high traffic APIs, please read this [documentation](https://docs.microsoft.com/azure/api-management/api-management-howto-app-insights#performance-implications-and-log-sampling) to understand performance implications and log sampling. Valid values are between `0.0` and `100.0`.
+- `sampling_percentage` - (Optional) Sampling (%). For high traffic APIs, please read this [documentation](https://docs.microsoft.com/azure/api-management/api-management-howto-app-insights#performance-implications-and-log-sampling) to understand performance implications and log sampling. Valid values are between `0.0` and `100.0`.
 
-* `verbosity` - (Optional) Logging verbosity. Possible values are `verbose`, `information` or `error`.
+- `verbosity` - (Optional) Logging verbosity. Possible values are `verbose`, `information` or `error`.
 
-* `operation_name_format` - (Optional) The format of the Operation Name for Application Insights telemetries. Possible values are `Name`, and `Url`. Defaults to `Name`.
+- `operation_name_format` - (Optional) The format of the Operation Name for Application Insights telemetries. Possible values are `Name`, and `Url`. Defaults to `Name`.
 
 ---
 
 A `backend_request`, `backend_response`, `frontend_request` or `frontend_response` block supports the following:
 
-* `body_bytes` - (Optional) Number of payload bytes to log (up to 8192).
+- `body_bytes` - (Optional) Number of payload bytes to log (up to 8192).
 
-* `headers_to_log` - (Optional) Specifies a list of headers to log.
+- `headers_to_log` - (Optional) Specifies a list of headers to log.
 
-* `data_masking` - (Optional) A `data_masking` block as defined below.
+- `data_masking` - (Optional) A `data_masking` block as defined below.
 
 ---
 
 A `data_masking` block supports the following:
 
-* `query_params` - (Optional) A `query_params` block as defined below.
+- `query_params` - (Optional) A `query_params` block as defined below.
 
-* `headers` - (Optional) A `headers` block as defined below.
+- `headers` - (Optional) A `headers` block as defined below.
 
 ---
 
 The `query_params` and `headers` blocks support the following:
 
-* `mode` - (Required) The data masking mode. Possible values are `Mask` and `Hide` for `query_params`. The only possible value is `Mask` for `headers`.
+- `mode` - (Required) The data masking mode. Possible values are `Mask` and `Hide` for `query_params`. The only possible value is `Mask` for `headers`.
 
-* `value` - (Required) The name of the header or the query parameter to mask.
+- `value` - (Required) The name of the header or the query parameter to mask.
 
 ## Attributes Reference
 
 In addition to the Arguments listed above - the following Attributes are exported:
 
-* `id` - The ID of the API Management Service API Diagnostics Logs.
+- `id` - The ID of the API Management Service API Diagnostics Logs.
 
 ## Timeouts
 
 The `timeouts` block allows you to specify [timeouts](https://www.terraform.io/language/resources/syntax#operation-timeouts) for certain actions:
 
-* `create` - (Defaults to 30 minutes) Used when creating the API Management Service API Diagnostics Logs.
-* `read` - (Defaults to 5 minutes) Used when retrieving the API Management Service API Diagnostics Logs.
-* `update` - (Defaults to 30 minutes) Used when updating the API Management Service API Diagnostics Logs.
-* `delete` - (Defaults to 30 minutes) Used when deleting the API Management Service API Diagnostics Logs.
+- `create` - (Defaults to 30 minutes) Used when creating the API Management Service API Diagnostics Logs.
+- `read` - (Defaults to 5 minutes) Used when retrieving the API Management Service API Diagnostics Logs.
+- `update` - (Defaults to 30 minutes) Used when updating the API Management Service API Diagnostics Logs.
+- `delete` - (Defaults to 30 minutes) Used when deleting the API Management Service API Diagnostics Logs.
 
 ## Import
 

@@ -8,13 +8,13 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/aoshfan/terraform-provider-customazurerm/internal/acceptance"
+	"github.com/aoshfan/terraform-provider-customazurerm/internal/acceptance/check"
+	"github.com/aoshfan/terraform-provider-customazurerm/internal/clients"
+	"github.com/aoshfan/terraform-provider-customazurerm/internal/tf/pluginsdk"
+	"github.com/aoshfan/terraform-provider-customazurerm/utils"
 	"github.com/hashicorp/go-azure-helpers/lang/response"
 	"github.com/hashicorp/go-azure-sdk/resource-manager/datafactory/2018-06-01/factories"
-	"github.com/hashicorp/terraform-provider-azurerm/internal/acceptance"
-	"github.com/hashicorp/terraform-provider-azurerm/internal/acceptance/check"
-	"github.com/hashicorp/terraform-provider-azurerm/internal/clients"
-	"github.com/hashicorp/terraform-provider-azurerm/internal/tf/pluginsdk"
-	"github.com/hashicorp/terraform-provider-azurerm/utils"
 )
 
 type DataFactoryResource struct{}
@@ -134,7 +134,7 @@ func TestAccDataFactory_github(t *testing.T) {
 				check.That(data.ResourceName).ExistsInAzure(r),
 				check.That(data.ResourceName).Key("github_configuration.0.account_name").HasValue(fmt.Sprintf("acctestGH-%d", data.RandomInteger)),
 				check.That(data.ResourceName).Key("github_configuration.0.git_url").HasValue("https://github.com/hashicorp/"),
-				check.That(data.ResourceName).Key("github_configuration.0.repository_name").HasValue("terraform-provider-azurerm"),
+				check.That(data.ResourceName).Key("github_configuration.0.repository_name").HasValue("terraform-provider-customazurerm"),
 				check.That(data.ResourceName).Key("github_configuration.0.branch_name").HasValue("main"),
 				check.That(data.ResourceName).Key("github_configuration.0.root_folder").HasValue("/"),
 			),
@@ -501,7 +501,7 @@ resource "azurerm_data_factory" "test" {
 
   github_configuration {
     git_url            = "https://github.com/hashicorp/"
-    repository_name    = "terraform-provider-azurerm"
+    repository_name    = "terraform-provider-customazurerm"
     branch_name        = "main"
     root_folder        = "/"
     account_name       = "acctestGH-%d"
@@ -556,7 +556,7 @@ resource "azurerm_data_factory" "test" {
   resource_group_name = azurerm_resource_group.test.name
 
   github_configuration {
-    repository_name    = "terraform-provider-azurerm"
+    repository_name    = "terraform-provider-customazurerm"
     branch_name        = "main"
     root_folder        = "/"
     account_name       = "acctestGH-%d"

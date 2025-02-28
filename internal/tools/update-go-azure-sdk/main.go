@@ -103,7 +103,7 @@ func run(ctx context.Context, input config) error {
 	// ^ gives a list of paths which wants translating into `service[oldapi-newapi]`
 
 	logger.Info(fmt.Sprintf("New SDK Version is %q", input.newSdkVersion))
-	logger.Info(fmt.Sprintf("The `hashicorp/terraform-provider-azurerm` repository is located at %q", input.azurermRepoPath))
+	logger.Info(fmt.Sprintf("The `aoshfan/terraform-provider-customazurerm` repository is located at %q", input.azurermRepoPath))
 
 	if input.goSdkRepoPath != "" {
 		logger.Info(fmt.Sprintf("The `hashicorp/go-azure-sdk` repository is located at %q", input.goSdkRepoPath))
@@ -137,7 +137,7 @@ func run(ctx context.Context, input config) error {
 		return nil
 	}
 
-	// 3. Update the version of `hashicorp/go-azure-sdk` used in `terraform-provider-azurerm`
+	// 3. Update the version of `hashicorp/go-azure-sdk` used in `terraform-provider-customazurerm`
 	for _, moduleType := range goModulesToUpdate {
 		logger.Info(fmt.Sprintf("Updating the %q Go module within `hashicorp/go-azure-sdk`..", string(moduleType)))
 		if err := updateVersionOfGoAzureSDK(ctx, input.azurermRepoPath, moduleType, input.newSdkVersion); err != nil {

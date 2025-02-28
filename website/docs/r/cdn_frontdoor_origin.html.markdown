@@ -211,33 +211,33 @@ resource "azurerm_private_link_service" "example" {
 
 The following arguments are supported:
 
-* `name` - (Required) The name which should be used for this Front Door Origin. Changing this forces a new Front Door Origin to be created.
+- `name` - (Required) The name which should be used for this Front Door Origin. Changing this forces a new Front Door Origin to be created.
 
-* `cdn_frontdoor_origin_group_id` - (Required) The ID of the Front Door Origin Group within which this Front Door Origin should exist. Changing this forces a new Front Door Origin to be created.
+- `cdn_frontdoor_origin_group_id` - (Required) The ID of the Front Door Origin Group within which this Front Door Origin should exist. Changing this forces a new Front Door Origin to be created.
 
-* `host_name` - (Required) The IPv4 address, IPv6 address or Domain name of the Origin.
+- `host_name` - (Required) The IPv4 address, IPv6 address or Domain name of the Origin.
 
 !> **IMPORTANT:** This must be unique across all Front Door Origins within a Front Door Endpoint.
 
-* `certificate_name_check_enabled` - (Required) Specifies whether certificate name checks are enabled for this origin.
+- `certificate_name_check_enabled` - (Required) Specifies whether certificate name checks are enabled for this origin.
 
-* `enabled` - (Optional) Should the origin be enabled? Possible values are `true` or `false`. Defaults to `true`.
+- `enabled` - (Optional) Should the origin be enabled? Possible values are `true` or `false`. Defaults to `true`.
 
-* `http_port` - (Optional) The value of the HTTP port. Must be between `1` and `65535`. Defaults to `80`.
+- `http_port` - (Optional) The value of the HTTP port. Must be between `1` and `65535`. Defaults to `80`.
 
-* `https_port` - (Optional) The value of the HTTPS port. Must be between `1` and `65535`. Defaults to `443`.
+- `https_port` - (Optional) The value of the HTTPS port. Must be between `1` and `65535`. Defaults to `443`.
 
-* `origin_host_header` - (Optional) The host header value (an IPv4 address, IPv6 address or Domain name) which is sent to the origin with each request. If unspecified the hostname from the request will be used.
+- `origin_host_header` - (Optional) The host header value (an IPv4 address, IPv6 address or Domain name) which is sent to the origin with each request. If unspecified the hostname from the request will be used.
 
 -> Azure Front Door Origins, such as Web Apps, Blob Storage, and Cloud Services require this host header value to match the origin's hostname. This field's value overrides the host header defined in the Front Door Endpoint. For more information on how to properly set the origin host header value please see the [product documentation](https://docs.microsoft.com/azure/frontdoor/origin?pivots=front-door-standard-premium#origin-host-header).
 
-* `priority` - (Optional) Priority of origin in given origin group for load balancing. Higher priorities will not be used for load balancing if any lower priority origin is healthy. Must be between `1` and `5` (inclusive). Defaults to `1`.
+- `priority` - (Optional) Priority of origin in given origin group for load balancing. Higher priorities will not be used for load balancing if any lower priority origin is healthy. Must be between `1` and `5` (inclusive). Defaults to `1`.
 
-* `private_link` - (Optional) A `private_link` block as defined below.
+- `private_link` - (Optional) A `private_link` block as defined below.
 
 -> **NOTE:** Private Link requires that the Front Door Profile this Origin is hosted within is using the SKU `Premium_AzureFrontDoor` and that the `certificate_name_check_enabled` field is set to `true`.
 
-* `weight` - (Optional) The weight of the origin in a given origin group for load balancing. Must be between `1` and `1000`. Defaults to `500`.
+- `weight` - (Optional) The weight of the origin in a given origin group for load balancing. Must be between `1` and `1000`. Defaults to `500`.
 
 ---
 
@@ -249,15 +249,15 @@ A `private_link` block supports the following:
 
 !> **IMPORTANT:** To associate a Load Balancer with a Front Door Origin via Private Link you must stand up your own `azurerm_private_link_service` - and ensure that a `depends_on` exists on the `azurerm_cdn_frontdoor_origin` resource to ensure it's destroyed before the `azurerm_private_link_service` resource (e.g. `depends_on = [azurerm_private_link_service.example]`) due to the design of the Front Door Service.
 
-* `request_message` - (Optional) Specifies the request message that will be submitted to the `private_link_target_id` when requesting the private link endpoint connection. Values must be between `1` and `140` characters in length. Defaults to `Access request for CDN FrontDoor Private Link Origin`.
+- `request_message` - (Optional) Specifies the request message that will be submitted to the `private_link_target_id` when requesting the private link endpoint connection. Values must be between `1` and `140` characters in length. Defaults to `Access request for CDN FrontDoor Private Link Origin`.
 
-* `target_type` - (Optional) Specifies the type of target for this Private Link Endpoint. Possible values are `blob`, `blob_secondary`, `web` and `sites`.
+- `target_type` - (Optional) Specifies the type of target for this Private Link Endpoint. Possible values are `blob`, `blob_secondary`, `web` and `sites`.
 
 -> **NOTE:** `target_type` cannot be specified when using a Load Balancer as an Origin.
 
-* `location` - (Required) Specifies the location where the Private Link resource should exist. Changing this forces a new resource to be created.
+- `location` - (Required) Specifies the location where the Private Link resource should exist. Changing this forces a new resource to be created.
 
-* `private_link_target_id` - (Required) The ID of the Azure Resource to connect to via the Private Link.
+- `private_link_target_id` - (Required) The ID of the Azure Resource to connect to via the Private Link.
 
 -> **Note:** the `private_link_target_id` property must specify the Resource ID of the Private Link Service when using Load Balancer as an Origin.
 
@@ -265,25 +265,25 @@ A `private_link` block supports the following:
 
 ## Example HCL Configurations
 
-* [Private Link Origin with Storage Account Blob](https://github.com/hashicorp/terraform-provider-azurerm/tree/main/examples/private-endpoint/cdn-frontdoor/storage-account-blob)
-* [Private Link Origin with Storage Account Static Web Site](https://github.com/hashicorp/terraform-provider-azurerm/tree/main/examples/private-endpoint/cdn-frontdoor/storage-account-static-site)
-* [Private Link Origin with Linux Web Application](https://github.com/hashicorp/terraform-provider-azurerm/tree/main/examples/private-endpoint/cdn-frontdoor/linux-web-app)
-* [Private Link Origin with Internal Load Balancer](https://github.com/hashicorp/terraform-provider-azurerm/tree/main/examples/private-endpoint/private-link-service/cdn-frontdoor/load-balancer)
+- [Private Link Origin with Storage Account Blob](https://github.com/aoshfan/terraform-provider-customazurerm/tree/main/examples/private-endpoint/cdn-frontdoor/storage-account-blob)
+- [Private Link Origin with Storage Account Static Web Site](https://github.com/aoshfan/terraform-provider-customazurerm/tree/main/examples/private-endpoint/cdn-frontdoor/storage-account-static-site)
+- [Private Link Origin with Linux Web Application](https://github.com/aoshfan/terraform-provider-customazurerm/tree/main/examples/private-endpoint/cdn-frontdoor/linux-web-app)
+- [Private Link Origin with Internal Load Balancer](https://github.com/aoshfan/terraform-provider-customazurerm/tree/main/examples/private-endpoint/private-link-service/cdn-frontdoor/load-balancer)
 
 ## Attributes Reference
 
 In addition to the Arguments listed above - the following Attributes are exported:
 
-* `id` - The ID of the Front Door Origin.
+- `id` - The ID of the Front Door Origin.
 
 ## Timeouts
 
 The `timeouts` block allows you to specify [timeouts](https://www.terraform.io/language/resources/syntax#operation-timeouts) for certain actions:
 
-* `create` - (Defaults to 30 minutes) Used when creating the Front Door Origin.
-* `read` - (Defaults to 5 minutes) Used when retrieving the Front Door Origin.
-* `update` - (Defaults to 30 minutes) Used when updating the Front Door Origin.
-* `delete` - (Defaults to 30 minutes) Used when deleting the Front Door Origin.
+- `create` - (Defaults to 30 minutes) Used when creating the Front Door Origin.
+- `read` - (Defaults to 5 minutes) Used when retrieving the Front Door Origin.
+- `update` - (Defaults to 30 minutes) Used when updating the Front Door Origin.
+- `delete` - (Defaults to 30 minutes) Used when deleting the Front Door Origin.
 
 ## Import
 

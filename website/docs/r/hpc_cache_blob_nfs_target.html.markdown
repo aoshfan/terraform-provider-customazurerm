@@ -63,7 +63,7 @@ resource "azurerm_storage_account" "example" {
   }
 }
 
-# Due to https://github.com/hashicorp/terraform-provider-azurerm/issues/2977 and the fact
+# Due to https://github.com/aoshfan/terraform-provider-customazurerm/issues/2977 and the fact
 # that the NFSv3 enabled storage account can't allow public network access - otherwise the NFSv3 protocol will fail,
 # we have to use the ARM template to deploy the storage container as a workaround.
 # Once the issue above got resolved, we can instead use the azurerm_storage_container resource.
@@ -171,42 +171,42 @@ resource "azurerm_hpc_cache_blob_nfs_target" "example" {
 
 The following arguments are supported:
 
-* `cache_name` - (Required) The name of the HPC Cache, which the HPC Cache Blob NFS Target will be added to. Changing this forces a new HPC Cache Blob NFS Target to be created.
+- `cache_name` - (Required) The name of the HPC Cache, which the HPC Cache Blob NFS Target will be added to. Changing this forces a new HPC Cache Blob NFS Target to be created.
 
-* `name` - (Required) The name which should be used for this HPC Cache Blob NFS Target. Changing this forces a new HPC Cache Blob NFS Target to be created.
+- `name` - (Required) The name which should be used for this HPC Cache Blob NFS Target. Changing this forces a new HPC Cache Blob NFS Target to be created.
 
-* `namespace_path` - (Required) The client-facing file path of the HPC Cache Blob NFS Target.
+- `namespace_path` - (Required) The client-facing file path of the HPC Cache Blob NFS Target.
 
-* `resource_group_name` - (Required) The name of the Resource Group where the HPC Cache Blob NFS Target should exist. Changing this forces a new HPC Cache Blob NFS Target to be created.
+- `resource_group_name` - (Required) The name of the Resource Group where the HPC Cache Blob NFS Target should exist. Changing this forces a new HPC Cache Blob NFS Target to be created.
 
-* `storage_container_id` - (Required) The Resource Manager ID of the Storage Container used as the HPC Cache Blob NFS Target. Changing this forces a new resource to be created.
+- `storage_container_id` - (Required) The Resource Manager ID of the Storage Container used as the HPC Cache Blob NFS Target. Changing this forces a new resource to be created.
 
 -> **Note:** This is the Resource Manager ID of the Storage Container, rather than the regular ID - and can be accessed on the `azurerm_storage_container` Data Source/Resource as `resource_manager_id`.
 
-* `usage_model` - (Required) The type of usage of the HPC Cache Blob NFS Target. Possible values are: `READ_HEAVY_INFREQ`, `READ_HEAVY_CHECK_180`, `READ_ONLY`, `READ_WRITE`, `WRITE_WORKLOAD_15`, `WRITE_AROUND`, `WRITE_WORKLOAD_CHECK_30`, `WRITE_WORKLOAD_CHECK_60` and `WRITE_WORKLOAD_CLOUDWS`.
+- `usage_model` - (Required) The type of usage of the HPC Cache Blob NFS Target. Possible values are: `READ_HEAVY_INFREQ`, `READ_HEAVY_CHECK_180`, `READ_ONLY`, `READ_WRITE`, `WRITE_WORKLOAD_15`, `WRITE_AROUND`, `WRITE_WORKLOAD_CHECK_30`, `WRITE_WORKLOAD_CHECK_60` and `WRITE_WORKLOAD_CLOUDWS`.
 
-* `verification_timer_in_seconds` - (Optional) The amount of time the cache waits before it checks the back-end storage for file updates. Possible values are between `1` and `31536000`.
+- `verification_timer_in_seconds` - (Optional) The amount of time the cache waits before it checks the back-end storage for file updates. Possible values are between `1` and `31536000`.
 
-* `write_back_timer_in_seconds` - (Optional) The amount of time the cache waits after the last file change before it copies the changed file to back-end storage. Possible values are between `1` and `31536000`.
+- `write_back_timer_in_seconds` - (Optional) The amount of time the cache waits after the last file change before it copies the changed file to back-end storage. Possible values are between `1` and `31536000`.
 
 ---
 
-* `access_policy_name` - (Optional) The name of the access policy applied to this target. Defaults to `default`.
+- `access_policy_name` - (Optional) The name of the access policy applied to this target. Defaults to `default`.
 
 ## Attributes Reference
 
 In addition to the Arguments listed above - the following Attributes are exported:
 
-* `id` - The ID of the HPC Cache Blob NFS Target.
+- `id` - The ID of the HPC Cache Blob NFS Target.
 
 ## Timeouts
 
 The `timeouts` block allows you to specify [timeouts](https://www.terraform.io/language/resources/syntax#operation-timeouts) for certain actions:
 
-* `create` - (Defaults to 30 minutes) Used when creating the HPC Cache Blob NFS Target.
-* `read` - (Defaults to 5 minutes) Used when retrieving the HPC Cache Blob NFS Target.
-* `update` - (Defaults to 30 minutes) Used when updating the HPC Cache Blob NFS Target.
-* `delete` - (Defaults to 30 minutes) Used when deleting the HPC Cache Blob NFS Target.
+- `create` - (Defaults to 30 minutes) Used when creating the HPC Cache Blob NFS Target.
+- `read` - (Defaults to 5 minutes) Used when retrieving the HPC Cache Blob NFS Target.
+- `update` - (Defaults to 30 minutes) Used when updating the HPC Cache Blob NFS Target.
+- `delete` - (Defaults to 30 minutes) Used when deleting the HPC Cache Blob NFS Target.
 
 ## Import
 

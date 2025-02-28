@@ -1,22 +1,22 @@
 ## Developer Requirements
 
-* [Terraform (Core)](https://www.terraform.io/downloads.html) - version 1.x (0.12.x and above are compatible however 1.x is recommended)
-* [Go](https://golang.org/doc/install) version 1.22.x (to build the provider plugin)
+- [Terraform (Core)](https://www.terraform.io/downloads.html) - version 1.x (0.12.x and above are compatible however 1.x is recommended)
+- [Go](https://golang.org/doc/install) version 1.22.x (to build the provider plugin)
 
 ## Contributor Guides
 
-A Collection of guides geared towards contributors can be found in the [`/contributing`](https://github.com/hashicorp/terraform-provider-azurerm/tree/main/contributing) directory of this repository.
+A Collection of guides geared towards contributors can be found in the [`/contributing`](https://github.com/aoshfan/terraform-provider-customazurerm/tree/main/contributing) directory of this repository.
 
 ### On Windows
 
 If you're on Windows you'll also need:
 
-* [Git Bash for Windows](https://git-scm.com/download/win)
-* [Make for Windows](http://gnuwin32.sourceforge.net/packages/make.htm)
+- [Git Bash for Windows](https://git-scm.com/download/win)
+- [Make for Windows](http://gnuwin32.sourceforge.net/packages/make.htm)
 
-For *GNU32 Make*, make sure its bin path is added to PATH environment variable.*
+For _GNU32 Make_, make sure its bin path is added to PATH environment variable.\*
 
-For *Git Bash for Windows*, at the step of "Adjusting your PATH environment", please choose "Use Git and optional Unix tools from Windows Command Prompt".*
+For _Git Bash for Windows_, at the step of "Adjusting your PATH environment", please choose "Use Git and optional Unix tools from Windows Command Prompt".\*
 
 Or install via [Chocolatey](https://chocolatey.org/install) (`Git Bash for Windows` must be installed per steps above)
 
@@ -35,12 +35,12 @@ You may get errors when cloning the repository on Windows that end with `Filenam
 
 If you wish to work on the provider, you'll first need [Go](https://go.dev/) installed on your machine. You'll also need to correctly setup a [GOPATH](https://pkg.go.dev/cmd/go#hdr-GOPATH_environment_variable), as well as adding `$GOPATH/bin` to your `$PATH`.
 
-First clone the repository to: `$GOPATH/src/github.com/hashicorp/terraform-provider-azurerm`
+First clone the repository to: `$GOPATH/src/github.com/aoshfan/terraform-provider-customazurerm`
 
 ```sh
 mkdir -p $GOPATH/src/github.com/hashicorp; cd $GOPATH/src/github.com/hashicorp
-git clone git@github.com:hashicorp/terraform-provider-azurerm
-cd $GOPATH/src/github.com/hashicorp/terraform-provider-azurerm
+git clone git@github.com:aoshfan/terraform-provider-customazurerm
+cd $GOPATH/src/github.com/aoshfan/terraform-provider-customazurerm
 ```
 
 Once inside the provider directory, you can run `make tools` to install the dependent tooling required to compile the provider.
@@ -51,7 +51,7 @@ At this point you can compile the provider by running `make build`, which will b
 make build
 # ... make output omitted ...
 # The provider binary will be output to:
-#   $GOPATH/bin/terraform-provider-azurerm
+#   $GOPATH/bin/terraform-provider-customazurerm
 # ...
 ```
 
@@ -73,8 +73,8 @@ The majority of tests in the provider are `Acceptance Tests` - which provisions 
 make acctests SERVICE='<service>' TESTARGS='-run=<nameOfTheTest>' TESTTIMEOUT='60m'
 ```
 
-* `<service>` is the name of the folder which contains the file with the test(s) you want to run. The available folders are found in `azurerm/internal/services/`. So examples are `mssql`, `compute` or `mariadb`
-* `<nameOfTheTest>` should be self-explanatory as it is the name of the test you want to run. An example could be `TestAccMsSqlServerExtendedAuditingPolicy_basic`. Since `-run` can be used with regular expressions you can use it to specify multiple tests like in `TestAccMsSqlServerExtendedAuditingPolicy_` to run all tests that match that expression
+- `<service>` is the name of the folder which contains the file with the test(s) you want to run. The available folders are found in `azurerm/internal/services/`. So examples are `mssql`, `compute` or `mariadb`
+- `<nameOfTheTest>` should be self-explanatory as it is the name of the test you want to run. An example could be `TestAccMsSqlServerExtendedAuditingPolicy_basic`. Since `-run` can be used with regular expressions you can use it to specify multiple tests like in `TestAccMsSqlServerExtendedAuditingPolicy_` to run all tests that match that expression
 
 The following Environment Variables must be set in your shell prior to running acceptance tests:
 
@@ -130,9 +130,9 @@ Where `name` is the name of the Resource ID Type - and `id` is an example Resour
 
 When `make generate` is run, this will then generate the following for this Resource ID:
 
-* Resource ID Struct, containing the fields and a Formatter to convert this into a string - and the associated Unit Tests.
-* Resource ID Parser (`./parse/{name}.go`) - to be able to parse a Resource ID into said struct - and the associated Unit Tests.
-* Resource ID Validator (`./validate/{name}_id.go`) - to validate the Resource ID is what's expected (and not for a different resource) - and the associated Unit Tests.
+- Resource ID Struct, containing the fields and a Formatter to convert this into a string - and the associated Unit Tests.
+- Resource ID Parser (`./parse/{name}.go`) - to be able to parse a Resource ID into said struct - and the associated Unit Tests.
+- Resource ID Validator (`./validate/{name}_id.go`) - to validate the Resource ID is what's expected (and not for a different resource) - and the associated Unit Tests.
 
 ---
 

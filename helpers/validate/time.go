@@ -8,8 +8,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/aoshfan/terraform-provider-customazurerm/internal/tf/validation"
 	iso8601 "github.com/btubbs/datetime"
-	"github.com/hashicorp/terraform-provider-azurerm/internal/tf/validation"
 	"github.com/rickb777/date/period"
 )
 

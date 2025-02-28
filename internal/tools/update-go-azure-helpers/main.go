@@ -83,7 +83,7 @@ func (c config) validate() error {
 
 func run(ctx context.Context, input config) error {
 	logger.Info(fmt.Sprintf("New Go Azure Helpers Version is %q", input.newHelpersVersion))
-	logger.Info(fmt.Sprintf("The `hashicorp/terraform-provider-azurerm` repository is located at %q", input.azurermRepoPath))
+	logger.Info(fmt.Sprintf("The `aoshfan/terraform-provider-customazurerm` repository is located at %q", input.azurermRepoPath))
 
 	if input.azureHelpersRepoPath != "" {
 		logger.Info(fmt.Sprintf("The `hashicorp/go-azure-helpers` repository is located at %q", input.azureHelpersRepoPath))
@@ -99,7 +99,7 @@ func run(ctx context.Context, input config) error {
 	}
 	logger.Info(fmt.Sprintf("Old Go Azure Helpers Version is %q", *oldHelpersVersion))
 
-	// 2. Update the version of `hashicorp/go-azure-helpers` used in `terraform-provider-azurerm`
+	// 2. Update the version of `hashicorp/go-azure-helpers` used in `terraform-provider-customazurerm`
 	logger.Info(fmt.Sprintf("Updating `hashicorp/go-azure-helpers`.."))
 	if err := updateVersionOfGoAzureHelpers(ctx, input.azurermRepoPath, input.newHelpersVersion); err != nil {
 		return fmt.Errorf("updating the version of `hashicorp/go-azure-helpers`: %+v", err)

@@ -1,4 +1,4 @@
-module github.com/hashicorp/terraform-provider-azurerm
+module github.com/aoshfan/terraform-provider-customazurerm
 
 require (
 	github.com/Azure/azure-sdk-for-go v66.0.0+incompatible
@@ -32,7 +32,7 @@ require (
 	github.com/hashicorp/terraform-plugin-testing v1.11.0
 	github.com/jackofallops/giovanni v0.28.0
 	github.com/jackofallops/kermit v0.20241010.1180132
-	github.com/magodo/terraform-provider-azurerm-example-gen v0.0.0-20220407025246-3a3ee0ab24a8
+	github.com/magodo/terraform-provider-customazurerm-example-gen v0.0.0-20220407025246-3a3ee0ab24a8
 	github.com/mitchellh/mapstructure v1.5.0
 	github.com/rickb777/date v1.12.5-0.20200422084442-6300e543c4d9
 	github.com/sergi/go-diff v1.3.2-0.20230802210424-5b0b94c5c0d3

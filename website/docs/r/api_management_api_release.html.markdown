@@ -42,7 +42,7 @@ resource "azurerm_api_management_api" "example" {
 
   import {
     content_format = "swagger-link-json"
-    content_value  = "https://raw.githubusercontent.com/hashicorp/terraform-provider-azurerm/refs/heads/main/internal/services/apimanagement/testdata/api_management_api_swagger.json"
+    content_value  = "https://raw.githubusercontent.com/aoshfan/terraform-provider-customazurerm/refs/heads/main/internal/services/apimanagement/testdata/api_management_api_swagger.json"
   }
 }
 
@@ -56,28 +56,28 @@ resource "azurerm_api_management_api_release" "example" {
 
 The following arguments are supported:
 
-* `name` - (Required) The name which should be used for this API Management API Release. Changing this forces a new API Management API Release to be created.
+- `name` - (Required) The name which should be used for this API Management API Release. Changing this forces a new API Management API Release to be created.
 
-* `api_id` - (Required) The ID of the API Management API. Changing this forces a new API Management API Release to be created.
+- `api_id` - (Required) The ID of the API Management API. Changing this forces a new API Management API Release to be created.
 
 ---
 
-* `notes` - (Optional) The Release Notes.
+- `notes` - (Optional) The Release Notes.
 
 ## Attributes Reference
 
 In addition to the Arguments listed above - the following Attributes are exported:
 
-* `id` - The ID of the API Management API Release.
+- `id` - The ID of the API Management API Release.
 
 ## Timeouts
 
 The `timeouts` block allows you to specify [timeouts](https://www.terraform.io/language/resources/syntax#operation-timeouts) for certain actions:
 
-* `create` - (Defaults to 30 minutes) Used when creating the API Management API Release.
-* `read` - (Defaults to 5 minutes) Used when retrieving the API Management API Release.
-* `update` - (Defaults to 30 minutes) Used when updating the API Management API Release.
-* `delete` - (Defaults to 30 minutes) Used when deleting the API Management API Release.
+- `create` - (Defaults to 30 minutes) Used when creating the API Management API Release.
+- `read` - (Defaults to 5 minutes) Used when retrieving the API Management API Release.
+- `update` - (Defaults to 30 minutes) Used when updating the API Management API Release.
+- `delete` - (Defaults to 30 minutes) Used when deleting the API Management API Release.
 
 ## Import
 

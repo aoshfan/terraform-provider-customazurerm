@@ -6,12 +6,12 @@
 
 The AzureRM Terraform Provider allows managing resources within Azure Resource Manager.
 
-When using version 4.0 of the AzureRM Provider we recommend using the latest version of Terraform Core ([the latest version can be found here](https://developer.hashicorp.com/terraform/install)). 
+When using version 4.0 of the AzureRM Provider we recommend using the latest version of Terraform Core ([the latest version can be found here](https://developer.hashicorp.com/terraform/install)).
 
-* [Terraform Website](https://www.terraform.io)
-* [AzureRM Provider Documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs)
-* [AzureRM Provider Usage Examples](https://github.com/hashicorp/terraform-provider-azurerm/tree/main/examples)
-* [Slack Workspace for Contributors](https://terraform-azure.slack.com) ([Request Invite](https://join.slack.com/t/terraform-azure/shared_invite/enQtNDMzNjQ5NzcxMDc3LWNiY2ZhNThhNDgzNmY0MTM0N2MwZjE4ZGU0MjcxYjUyMzRmN2E5NjZhZmQ0ZTA1OTExMGNjYzA4ZDkwZDYxNDE))
+- [Terraform Website](https://www.terraform.io)
+- [AzureRM Provider Documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs)
+- [AzureRM Provider Usage Examples](https://github.com/aoshfan/terraform-provider-customazurerm/tree/main/examples)
+- [Slack Workspace for Contributors](https://terraform-azure.slack.com) ([Request Invite](https://join.slack.com/t/terraform-azure/shared_invite/enQtNDMzNjQ5NzcxMDc3LWNiY2ZhNThhNDgzNmY0MTM0N2MwZjE4ZGU0MjcxYjUyMzRmN2E5NjZhZmQ0ZTA1OTExMGNjYzA4ZDkwZDYxNDE))
 
 ## Usage Example
 
@@ -54,10 +54,10 @@ resource "azurerm_virtual_network" "example" {
 }
 ```
 
-* [Usage documentation for the AzureRM Provider can be found in the Terraform Registry](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs).
-* [Learn more about Terraform and the AzureRM Provider on HashiCorp Learn](https://learn.hashicorp.com/collections/terraform/azure-get-started).
-* [Additional examples can be found in the `./examples` folder within this repository](https://github.com/hashicorp/terraform-provider-azurerm/tree/main/examples).
+- [Usage documentation for the AzureRM Provider can be found in the Terraform Registry](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs).
+- [Learn more about Terraform and the AzureRM Provider on HashiCorp Learn](https://learn.hashicorp.com/collections/terraform/azure-get-started).
+- [Additional examples can be found in the `./examples` folder within this repository](https://github.com/aoshfan/terraform-provider-customazurerm/tree/main/examples).
 
 ## Developing & Contributing to the Provider
 
-The [DEVELOPER.md](DEVELOPER.md) file is a basic outline on how to build and develop the provider while more detailed guides geared towards contributors can be found in the [`/contributing`](https://github.com/hashicorp/terraform-provider-azurerm/tree/main/contributing) directory of this repository.
+The [DEVELOPER.md](DEVELOPER.md) file is a basic outline on how to build and develop the provider while more detailed guides geared towards contributors can be found in the [`/contributing`](https://github.com/aoshfan/terraform-provider-customazurerm/tree/main/contributing) directory of this repository.

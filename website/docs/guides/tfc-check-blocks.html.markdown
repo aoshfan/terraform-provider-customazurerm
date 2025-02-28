@@ -3,7 +3,6 @@ layout: "azurerm"
 page_title: "Azure Resource Manager: Continuous Validation with Terraform Cloud"
 description: |-
 Azure Resource Manager: Continuous Validation with Terraform Cloud
-
 ---
 
 # Continuous Validation with Terraform Cloud
@@ -39,7 +38,7 @@ check "check_vm_state" {
 }
 ```
 
-The full example can be found in the provider's [examples](https://github.com/hashicorp/terraform-provider-azurerm/tree/main/examples/tfc-checks/vm-power-state) folder. 
+The full example can be found in the provider's [examples](https://github.com/aoshfan/terraform-provider-customazurerm/tree/main/examples/tfc-checks/vm-power-state) folder.
 
 ## Example - Check if a Container App certificate will expire within a certain timeframe (`azurerm_app_service_certificate`)
 
@@ -70,7 +69,7 @@ check "check_certificate_state" {
 
 ```
 
-The full example can be found in the provider's [examples](https://github.com/hashicorp/terraform-provider-azurerm/tree/main/examples/tfc-checks/app-service-certificate-expiry) folder. 
+The full example can be found in the provider's [examples](https://github.com/aoshfan/terraform-provider-customazurerm/tree/main/examples/tfc-checks/app-service-certificate-expiry) folder.
 
 ## Example - Check if an App Service Function or Web App has exceeded its usage limit (`azurerm_linux_function_app`, `azurerm_linux_web_app`)
 
@@ -93,4 +92,4 @@ check "check_vm_state" {
 }
 ```
 
-The full example can be found in the provider's [examples](https://github.com/hashicorp/terraform-provider-azurerm/tree/main/examples/tfc-checks/app-service-app-usage) folder. 
+The full example can be found in the provider's [examples](https://github.com/aoshfan/terraform-provider-customazurerm/tree/main/examples/tfc-checks/app-service-app-usage) folder.

@@ -6,7 +6,7 @@ package azure_test
 import (
 	"testing"
 
-	"github.com/hashicorp/terraform-provider-azurerm/helpers/azure"
+	"github.com/aoshfan/terraform-provider-customazurerm/helpers/azure"
 )
 
 func TestQuotedStringSlice(t *testing.T) {

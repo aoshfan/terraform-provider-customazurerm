@@ -43,7 +43,7 @@ resource "azurerm_api_management_api" "example" {
 
   import {
     content_format = "swagger-link-json"
-    content_value  = "https://raw.githubusercontent.com/hashicorp/terraform-provider-azurerm/refs/heads/main/internal/services/apimanagement/testdata/api_management_api_swagger.json"
+    content_value  = "https://raw.githubusercontent.com/aoshfan/terraform-provider-customazurerm/refs/heads/main/internal/services/apimanagement/testdata/api_management_api_swagger.json"
   }
 }
 
@@ -64,29 +64,29 @@ resource "azurerm_api_management_api_tag_description" "example" {
 
 The following arguments are supported:
 
-* `api_tag_id` - (Required) The The ID of the API Management API Tag. Changing this forces a new API Management API Tag Description to be created.
+- `api_tag_id` - (Required) The The ID of the API Management API Tag. Changing this forces a new API Management API Tag Description to be created.
 
-* `description` - (Optional) The description of the Tag.
+- `description` - (Optional) The description of the Tag.
 
-* `external_documentation_url` - (Optional) The URL of external documentation resources describing the tag.
+- `external_documentation_url` - (Optional) The URL of external documentation resources describing the tag.
 
-* `external_documentation_description` - (Optional) The description of the external documentation resources describing the tag.
+- `external_documentation_description` - (Optional) The description of the external documentation resources describing the tag.
 
 ## Attributes Reference
 
 In addition to the Arguments listed above - the following Attributes are exported:
 
-* `id` - The ID of the API Management API Schema.
+- `id` - The ID of the API Management API Schema.
 
 ## Timeouts
 
 The `timeouts` block allows you to
 specify [timeouts](https://www.terraform.io/language/resources/syntax#operation-timeouts) for certain actions:
 
-* `create` - (Defaults to 30 minutes) Used when creating the API Management API Schema.
-* `update` - (Defaults to 30 minutes) Used when updating the API Management API Schema.
-* `read` - (Defaults to 5 minutes) Used when retrieving the API Management API Schema.
-* `delete` - (Defaults to 30 minutes) Used when deleting the API Management API Schema.
+- `create` - (Defaults to 30 minutes) Used when creating the API Management API Schema.
+- `update` - (Defaults to 30 minutes) Used when updating the API Management API Schema.
+- `read` - (Defaults to 5 minutes) Used when retrieving the API Management API Schema.
+- `delete` - (Defaults to 30 minutes) Used when deleting the API Management API Schema.
 
 ## Import
 

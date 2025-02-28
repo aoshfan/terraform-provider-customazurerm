@@ -6,10 +6,10 @@ package azure
 import (
 	"fmt"
 
+	"github.com/aoshfan/terraform-provider-customazurerm/internal/tf/pluginsdk"
+	"github.com/aoshfan/terraform-provider-customazurermrermrerm/internal/tf/suppress"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/location"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/resourcegroups"
-	"github.com/hashicorp/terraform-provider-azurerm/internal/tf/pluginsdk"
-	"github.com/hashicorp/terraform-provider-azurerm/internal/tf/suppress"
 )
 
 // NormalizeLocation will be deprecated in the near future, use `location.Normalize()` instead.

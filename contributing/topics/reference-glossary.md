@@ -21,8 +21,8 @@ As the Azure Resource ID consists of user-specified Key-Value Pairs, the Azure R
 
 A Data Plane API provides access to data for resources provisioned via the Resource Manager API. Some examples:
 
-* The App Configuration Data Plane API allows for managing Keys and Features within an App Configuration.
-* The Storage Data Plane API allows for the uploading/downloading of Blobs within a Storage Container (within a Storage Account).
+- The App Configuration Data Plane API allows for managing Keys and Features within an App Configuration.
+- The Storage Data Plane API allows for the uploading/downloading of Blobs within a Storage Container (within a Storage Account).
 
 ### Embedded SDK
 
@@ -122,15 +122,15 @@ A Typed Resource is a Terraform Resource built using the Typed Plugin SDK, allow
 
 The Typed Plugin SDK is an abstraction over the Terraform Plugin SDK housed within the AzureRM Provider repository - which allows Terraform Data Sources and Resources to be built using Native Go Types.
 
-The Typed Plugin SDK contains both Golang Interfaces for Data Sources and Resources (which allows verifying these are valid at compile-time) - and a wrapper around Terraform Resource Data which allows for values from the Terraform Configuration to be  Serialized/Deserialized into a Native Go Struct.
+The Typed Plugin SDK contains both Golang Interfaces for Data Sources and Resources (which allows verifying these are valid at compile-time) - and a wrapper around Terraform Resource Data which allows for values from the Terraform Configuration to be Serialized/Deserialized into a Native Go Struct.
 
-More information can be found in [the documentation for the Typed Plugin SDK](https://github.com/hashicorp/terraform-provider-azurerm/blob/main/internal/sdk).
+More information can be found in [the documentation for the Typed Plugin SDK](https://github.com/aoshfan/terraform-provider-customazurerm/blob/main/internal/sdk).
 
 ### Typed Service Registration
 
 A Typed Service Registration returns a list of the Typed Data Sources and Typed Resources which are available within that Service Package.
 
-This is implemented within [the Typed Plugin SDK](https://github.com/hashicorp/terraform-provider-azurerm/blob/main/internal/sdk) as the interface `TypedServiceRegistration` (see also: `TypedServiceRegistrationWithAGitHubLabel`).
+This is implemented within [the Typed Plugin SDK](https://github.com/aoshfan/terraform-provider-customazurerm/blob/main/internal/sdk) as the interface `TypedServiceRegistration` (see also: `TypedServiceRegistrationWithAGitHubLabel`).
 
 ### Untyped Data Source
 
@@ -148,4 +148,4 @@ The Terraform Resource Data can be used to retrieve fields from the Terraform Co
 
 An Untyped Service Registration returns a list of the Untyped Data Sources and Untyped Resources which are available within that Service Package.
 
-This is implemented within [the Typed Plugin SDK](https://github.com/hashicorp/terraform-provider-azurerm/blob/main/internal/sdk) as the interface `UntypedServiceRegistration` (see also: `UntypedServiceRegistrationWithAGitHubLabel`).
+This is implemented within [the Typed Plugin SDK](https://github.com/aoshfan/terraform-provider-customazurerm/blob/main/internal/sdk) as the interface `UntypedServiceRegistration` (see also: `UntypedServiceRegistrationWithAGitHubLabel`).

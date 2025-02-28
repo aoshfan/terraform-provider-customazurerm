@@ -38,7 +38,7 @@ resource "azurerm_api_management_api" "example" {
   protocols           = ["https"]
   import {
     content_format = "swagger-link-json"
-    content_value  = "https://raw.githubusercontent.com/hashicorp/terraform-provider-azurerm/refs/heads/main/internal/services/apimanagement/testdata/api_management_api_schema_swagger.json"
+    content_value  = "https://raw.githubusercontent.com/aoshfan/terraform-provider-customazurerm/refs/heads/main/internal/services/apimanagement/testdata/api_management_api_schema_swagger.json"
   }
 }
 ```
@@ -47,140 +47,140 @@ resource "azurerm_api_management_api" "example" {
 
 The following arguments are supported:
 
-* `name` - (Required) The name of the API Management API. Changing this forces a new resource to be created.
+- `name` - (Required) The name of the API Management API. Changing this forces a new resource to be created.
 
-* `api_management_name` - (Required) The Name of the API Management Service where this API should be created. Changing this forces a new resource to be created.
+- `api_management_name` - (Required) The Name of the API Management Service where this API should be created. Changing this forces a new resource to be created.
 
-* `resource_group_name` - (Required) The Name of the Resource Group where the API Management API exists. Changing this forces a new resource to be created.
+- `resource_group_name` - (Required) The Name of the Resource Group where the API Management API exists. Changing this forces a new resource to be created.
 
-* `revision` - (Required) The Revision which used for this API. Changing this forces a new resource to be created.
+- `revision` - (Required) The Revision which used for this API. Changing this forces a new resource to be created.
 
 ---
 
-* `api_type` - (Optional) Type of API. Possible values are `graphql`, `http`, `soap`, and `websocket`. Defaults to `http`.
+- `api_type` - (Optional) Type of API. Possible values are `graphql`, `http`, `soap`, and `websocket`. Defaults to `http`.
 
-* `display_name` - (Optional) The display name of the API.
+- `display_name` - (Optional) The display name of the API.
 
-* `path` - (Optional) The Path for this API Management API, which is a relative URL which uniquely identifies this API and all of its resource paths within the API Management Service.
+- `path` - (Optional) The Path for this API Management API, which is a relative URL which uniquely identifies this API and all of its resource paths within the API Management Service.
 
-* `protocols` - (Optional) A list of protocols the operations in this API can be invoked. Possible values are `http`, `https`, `ws`, and `wss`.
+- `protocols` - (Optional) A list of protocols the operations in this API can be invoked. Possible values are `http`, `https`, `ws`, and `wss`.
 
 -> **NOTE:** `display_name`, `path` and `protocols` are required when `source_api_id` is not set.
 
-* `contact` - (Optional) A `contact` block as documented below.
+- `contact` - (Optional) A `contact` block as documented below.
 
-* `description` - (Optional) A description of the API Management API, which may include HTML formatting tags.
+- `description` - (Optional) A description of the API Management API, which may include HTML formatting tags.
 
-* `import` - (Optional) A `import` block as documented below.
+- `import` - (Optional) A `import` block as documented below.
 
-* `license` - (Optional) A `license` block as documented below.
+- `license` - (Optional) A `license` block as documented below.
 
-* `oauth2_authorization` - (Optional) An `oauth2_authorization` block as documented below.
+- `oauth2_authorization` - (Optional) An `oauth2_authorization` block as documented below.
 
-* `openid_authentication` - (Optional) An `openid_authentication` block as documented below.
+- `openid_authentication` - (Optional) An `openid_authentication` block as documented below.
 
-* `service_url` - (Optional) Absolute URL of the backend service implementing this API.
+- `service_url` - (Optional) Absolute URL of the backend service implementing this API.
 
-* `subscription_key_parameter_names` - (Optional) A `subscription_key_parameter_names` block as documented below.
+- `subscription_key_parameter_names` - (Optional) A `subscription_key_parameter_names` block as documented below.
 
-* `subscription_required` - (Optional) Should this API require a subscription key? Defaults to `true`.
+- `subscription_required` - (Optional) Should this API require a subscription key? Defaults to `true`.
 
-* `terms_of_service_url` - (Optional) Absolute URL of the Terms of Service for the API.
+- `terms_of_service_url` - (Optional) Absolute URL of the Terms of Service for the API.
 
-* `version` - (Optional) The Version number of this API, if this API is versioned.
+- `version` - (Optional) The Version number of this API, if this API is versioned.
 
-* `version_set_id` - (Optional) The ID of the Version Set which this API is associated with.
+- `version_set_id` - (Optional) The ID of the Version Set which this API is associated with.
 
 -> **NOTE:** When `version` is set, `version_set_id` must also be specified
 
-* `revision_description` - (Optional) The description of the API Revision of the API Management API.
+- `revision_description` - (Optional) The description of the API Revision of the API Management API.
 
-* `version_description` - (Optional) The description of the API Version of the API Management API.
+- `version_description` - (Optional) The description of the API Version of the API Management API.
 
-* `source_api_id` - (Optional) The API id of the source API, which could be in format `azurerm_api_management_api.example.id` or in format `azurerm_api_management_api.example.id;rev=1`
+- `source_api_id` - (Optional) The API id of the source API, which could be in format `azurerm_api_management_api.example.id` or in format `azurerm_api_management_api.example.id;rev=1`
 
 ---
 
 A `contact` block supports the following:
 
-* `email` - (Optional) The email address of the contact person/organization.
+- `email` - (Optional) The email address of the contact person/organization.
 
-* `name` - (Optional) The name of the contact person/organization.
+- `name` - (Optional) The name of the contact person/organization.
 
-* `url` - (Optional) Absolute URL of the contact information.
+- `url` - (Optional) Absolute URL of the contact information.
 
 ---
 
 A `import` block supports the following:
 
-* `content_format` - (Required) The format of the content from which the API Definition should be imported. Possible values are: `openapi`, `openapi+json`, `openapi+json-link`, `openapi-link`, `swagger-json`, `swagger-link-json`, `wadl-link-json`, `wadl-xml`, `wsdl` and `wsdl-link`.
+- `content_format` - (Required) The format of the content from which the API Definition should be imported. Possible values are: `openapi`, `openapi+json`, `openapi+json-link`, `openapi-link`, `swagger-json`, `swagger-link-json`, `wadl-link-json`, `wadl-xml`, `wsdl` and `wsdl-link`.
 
-* `content_value` - (Required) The Content from which the API Definition should be imported. When a `content_format` of `*-link-*` is specified this must be a URL, otherwise this must be defined inline. The URL must be accessible and return a valid document; otherwise, deployment may fail.
+- `content_value` - (Required) The Content from which the API Definition should be imported. When a `content_format` of `*-link-*` is specified this must be a URL, otherwise this must be defined inline. The URL must be accessible and return a valid document; otherwise, deployment may fail.
 
-* `wsdl_selector` - (Optional) A `wsdl_selector` block as defined below, which allows you to limit the import of a WSDL to only a subset of the document. This can only be specified when `content_format` is `wsdl` or `wsdl-link`.
+- `wsdl_selector` - (Optional) A `wsdl_selector` block as defined below, which allows you to limit the import of a WSDL to only a subset of the document. This can only be specified when `content_format` is `wsdl` or `wsdl-link`.
 
 ---
 
 A `license` block supports the following:
 
-* `name` - (Optional) The name of the license .
+- `name` - (Optional) The name of the license .
 
-* `url` - (Optional) Absolute URL of the license.
+- `url` - (Optional) Absolute URL of the license.
 
 ---
 
 A `oauth2_authorization` block supports the following:
 
-* `authorization_server_name` - (Required) OAuth authorization server identifier. The name of an [OAuth2 Authorization Server](https://www.terraform.io/docs/providers/azurerm/r/api_management_authorization_server.html).
+- `authorization_server_name` - (Required) OAuth authorization server identifier. The name of an [OAuth2 Authorization Server](https://www.terraform.io/docs/providers/azurerm/r/api_management_authorization_server.html).
 
-* `scope` - (Optional) Operations scope.
+- `scope` - (Optional) Operations scope.
 
 ---
 
 A `openid_authentication` block supports the following:
 
-* `openid_provider_name` - (Required) OpenID Connect provider identifier. The name of an [OpenID Connect Provider](https://www.terraform.io/docs/providers/azurerm/r/api_management_openid_connect_provider.html).
+- `openid_provider_name` - (Required) OpenID Connect provider identifier. The name of an [OpenID Connect Provider](https://www.terraform.io/docs/providers/azurerm/r/api_management_openid_connect_provider.html).
 
-* `bearer_token_sending_methods` - (Optional) How to send token to the server. A list of zero or more methods. Valid values are `authorizationHeader` and `query`.
+- `bearer_token_sending_methods` - (Optional) How to send token to the server. A list of zero or more methods. Valid values are `authorizationHeader` and `query`.
 
 ---
 
 A `subscription_key_parameter_names` block supports the following:
 
-* `header` - (Required) The name of the HTTP Header which should be used for the Subscription Key.
+- `header` - (Required) The name of the HTTP Header which should be used for the Subscription Key.
 
-* `query` - (Required) The name of the QueryString parameter which should be used for the Subscription Key.
+- `query` - (Required) The name of the QueryString parameter which should be used for the Subscription Key.
 
 ---
 
 A `wsdl_selector` block supports the following:
 
-* `service_name` - (Required) The name of service to import from WSDL.
+- `service_name` - (Required) The name of service to import from WSDL.
 
-* `endpoint_name` - (Required) The name of endpoint (port) to import from WSDL.
+- `endpoint_name` - (Required) The name of endpoint (port) to import from WSDL.
 
 ## Attributes Reference
 
 In addition to the Arguments listed above - the following Attributes are exported:
 
-* `id` - The ID of the API Management API.
+- `id` - The ID of the API Management API.
 
-* `is_current` - Is this the current API Revision?
+- `is_current` - Is this the current API Revision?
 
-* `is_online` - Is this API Revision online/accessible via the Gateway?
+- `is_online` - Is this API Revision online/accessible via the Gateway?
 
-* `version` - The Version number of this API, if this API is versioned.
+- `version` - The Version number of this API, if this API is versioned.
 
-* `version_set_id` - The ID of the Version Set which this API is associated with.
+- `version_set_id` - The ID of the Version Set which this API is associated with.
 
 ## Timeouts
 
 The `timeouts` block allows you to specify [timeouts](https://www.terraform.io/language/resources/syntax#operation-timeouts) for certain actions:
 
-* `create` - (Defaults to 30 minutes) Used when creating the API Management API.
-* `update` - (Defaults to 30 minutes) Used when updating the API Management API.
-* `read` - (Defaults to 5 minutes) Used when retrieving the API Management API.
-* `delete` - (Defaults to 30 minutes) Used when deleting the API Management API.
+- `create` - (Defaults to 30 minutes) Used when creating the API Management API.
+- `update` - (Defaults to 30 minutes) Used when updating the API Management API.
+- `read` - (Defaults to 5 minutes) Used when retrieving the API Management API.
+- `delete` - (Defaults to 30 minutes) Used when deleting the API Management API.
 
 ## Import
 

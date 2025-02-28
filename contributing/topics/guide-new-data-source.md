@@ -4,8 +4,8 @@ This guide covers adding a new Data Source to a Service Package, see [adding a N
 
 ### Related Topics
 
-* [Acceptance Testing](reference-acceptance-testing.md)
-* [Our Recommendations for opening a Pull Request](guide-opening-a-pr.md)
+- [Acceptance Testing](reference-acceptance-testing.md)
+- [Our Recommendations for opening a Pull Request](guide-opening-a-pr.md)
 
 ### Stages
 
@@ -37,14 +37,14 @@ However if the SDK Client you need to use isn't already configured in the Provid
 
 Determining which SDK Client you should be using is a little complicated unfortunately, in this case the SDK Client we want to use is: `github.com/Azure/azure-sdk-for-go/services/resources/mgmt/2020-06-01/resources`.
 
-The Client for the Service Package can be found in `./internal/services/{name}/client/client.go` - and we can add an instance of the SDK Client we want to use (here `resources.GroupsClient`) and configure it (adding credentials etc): 
+The Client for the Service Package can be found in `./internal/services/{name}/client/client.go` - and we can add an instance of the SDK Client we want to use (here `resources.GroupsClient`) and configure it (adding credentials etc):
 
 ```go
 package client
 
 import (
 	"github.com/hashicorp/go-azure-sdk/resource-manager/resources/2022-09-01/resources"
-	"github.com/hashicorp/terraform-provider-azurerm/internal/common"
+	"github.com/aoshfan/terraform-provider-customazurerm/internal/common"
 )
 
 type Client struct {
@@ -57,9 +57,9 @@ func NewClient(o *common.ClientOptions) (*Client, error) {
 		return nil, fmt.Errorf("building Resources Client: %+v", err)
     }
 	o.Configure(groupsClient.Client, o.Authorizer.ResourceManager)
-	
+
 	// ...
-	
+
 	return &Client{
 		GroupsClient: groupsClient,
 	}
@@ -88,12 +88,12 @@ Since we're creating a Data Source for a Resource Group, which is a part of the 
 
 In this case, this would be a file called `resource_group_example_data_source.go`, which we'll start out with the following:
 
-> **Note:** We'd normally name this file `resource_group_data_source.go` - but there's an existing Data Source for Resource Groups, so we're appending `example` to the name throughout this guide. 
+> **Note:** We'd normally name this file `resource_group_data_source.go` - but there's an existing Data Source for Resource Groups, so we're appending `example` to the name throughout this guide.
 
 ```go
 package resources
 
-import "github.com/hashicorp/terraform-provider-azurerm/internal/sdk"
+import "github.com/aoshfan/terraform-provider-customazurerm/internal/sdk"
 
 var _ sdk.DataSource = ResourceGroupExampleDataSource{}
 
@@ -116,11 +116,11 @@ type DataSource interface {
 
 To go through these in turn:
 
-* `Arguments` returns a list of schema fields which are user-specifiable - either Required or Optional.
-* `Attributes` returns a list of schema fields which are Computed (read-only).
-* `ModelObject` returns a reference to a Go struct which is used as the Model for this Data Source.
-* `ResourceType` returns the name of this resource within the Provider (for example `azurerm_resource_group_example`).
-* `Read` returns a function defining both the Timeout and the Read function (which retrieves information from the Azure API) for this Data Source.
+- `Arguments` returns a list of schema fields which are user-specifiable - either Required or Optional.
+- `Attributes` returns a list of schema fields which are Computed (read-only).
+- `ModelObject` returns a reference to a Go struct which is used as the Model for this Data Source.
+- `ResourceType` returns the name of this resource within the Provider (for example `azurerm_resource_group_example`).
+- `Read` returns a function defining both the Timeout and the Read function (which retrieves information from the Azure API) for this Data Source.
 
 ```go
 type ResourceGroupExampleDataSourceModel struct {
@@ -175,58 +175,58 @@ Next up, let's implement the Read function - which retrieves the information abo
 ```go
 func (ResourceGroupExampleDataSource) Read() sdk.ResourceFunc {
 	return sdk.ResourceFunc{
-		
+
 		// the Timeout is how long Terraform should wait for this function to run before returning an error
 		// whilst 5 minutes may initially seem excessive, we set this as a default to account for rate
 		// limiting - but having this here means that users can override this in their config as necessary
 		Timeout: 5 * time.Minute,
 
-		// the Func returns a function which retrieves the current state of the Resource Group into the state 
+		// the Func returns a function which retrieves the current state of the Resource Group into the state
 		Func: func(ctx context.Context, metadata sdk.ResourceMetaData) error {
 			client := metadata.Client.Resource.GroupsClient
-            
+
 			// retrieve the Name for this Resource Group from the Terraform Config
 			// and then create a Resource ID for this Resource Group
-			// using the Subscription ID & name 
+			// using the Subscription ID & name
 			subscriptionId := metadata.Client.Account.SubscriptionId
-			
+
 			// declare a variable called state which we use to decode and encode values into
 			// this simultaneously gets values that have been set in the config for us
 			// and also allows us to set values into state
 			var state ResourceGroupExampleDataSourceModel
 			if err := metadata.Decode(&state); err != nil {
 				return fmt.Errorf("decoding: %+v", err)
-			}   
-			
+			}
+
 			id := resources.NewResourceGroupExampleID(subscriptionId, state.Name)
-			
-			// then retrieve the Resource Group by its ID 
+
+			// then retrieve the Resource Group by its ID
 			resp, err := client.Get(ctx, id)
 			if err != nil {
 				// if the Resource Group doesn't exist (e.g. we get a 404 Not Found)
-				// since this is a Data Source we must return an error if it's Not Found 
+				// since this is a Data Source we must return an error if it's Not Found
 				if response.WasNotFound(resp.HttpResponse) {
 					return fmt.Errorf("%s was not found", id)
 				}
-				
+
 				// otherwise it's a genuine error (auth/api error etc) so raise it
 				// there should be enough context for the user to interpret the error
-				// or raise a bug report if there's something we should handle 
+				// or raise a bug report if there's something we should handle
 				return fmt.Errorf("retrieving %s: %+v", id, err)
 			}
-			
+
 			// now we know the Resource Group exists, set the Resource ID for this Data Source
-			// this means that Terraform will track this as existing 
+			// this means that Terraform will track this as existing
 			metadata.SetID(id)
-			
+
 			// at this point we can set information about this Resource Group into the State
 			// whilst traditionally we would do this via `metadata.ResourceData.Set("foo", "somevalue")
 			// the Location and Tags fields are a little different - and we have a couple of normalization
 			// functions for these.
-			
+
 			// whilst this may seem like a weird thing to call out in an example, because these two fields
 			// are present on the majority of resources, we hope it explains why they're a little different
-			 
+
 			// in this case the Location can be returned in various different forms, for example
 			// "West Europe", "WestEurope" or "westeurope" - as such we normalize these into a
 			// lower-cased singular word with no spaces (e.g. "westeurope") so this is consistent
@@ -236,9 +236,9 @@ func (ResourceGroupExampleDataSource) Read() sdk.ResourceFunc {
 				state.Tags = pointer.From(model.Tags)
 				props := model.Properties; props != nil {
 					// If the data source exposes additional properties that live within the Properties
-					// model of the response they would be set into state here. 
+					// model of the response they would be set into state here.
 				}
-			}   
+			}
 			return metadata.Encode(&state)
 		},
 	}
@@ -260,8 +260,8 @@ import (
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/commonschema"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/location"
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/tags"
-	"github.com/hashicorp/terraform-provider-azurerm/internal/sdk"
-	"github.com/hashicorp/terraform-provider-azurerm/internal/tf/pluginsdk"
+	"github.com/aoshfan/terraform-provider-customazurerm/internal/sdk"
+	"github.com/aoshfan/terraform-provider-customazurerm/internal/tf/pluginsdk"
 )
 
 type ResourceGroupExampleDataSource struct{}
@@ -286,7 +286,7 @@ func (d ResourceGroupExampleDataSource) Arguments() map[string]*pluginsdk.Schema
 func (d ResourceGroupExampleDataSource) Attributes() map[string]*pluginsdk.Schema {
 	return map[string]*pluginsdk.Schema{
 		"location": commonschema.LocationComputed(),
-		
+
 		"tags": commonschema.TagsDataSource(),
 	}
 }
@@ -342,7 +342,7 @@ Data Sources are registered within the `registration.go` within each Service Pac
 ```go
 package resource
 
-import "github.com/hashicorp/terraform-provider-azurerm/internal/sdk"
+import "github.com/aoshfan/terraform-provider-customazurerm/internal/sdk"
 
 var _ sdk.TypedServiceRegistration = Registration{}
 
@@ -385,7 +385,7 @@ func (Registration) WebsiteCategories() []string {
 }
 ```
 
-> In this case you'll also need to add a line to register this Service Registration [in the list of Typed Service Registrations](https://github.com/hashicorp/terraform-provider-azurerm/blob/bd7c755b789fa131778ef93824cf3bae5caccf56/internal/provider/services.go#L109).
+> In this case you'll also need to add a line to register this Service Registration [in the list of Typed Service Registrations](https://github.com/aoshfan/terraform-provider-customazurerm/blob/bd7c755b789fa131778ef93824cf3bae5caccf56/internal/provider/services.go#L109).
 
 ---
 
@@ -395,7 +395,7 @@ To register the Data Source we need to add an instance of the struct used for th
 // DataSources returns a list of Data Sources supported by this Service
 func (Registration) DataSources() []sdk.DataSource {
 	return []sdk.DataSource{
-		ResourceGroupExampleDataSource{},	
+		ResourceGroupExampleDataSource{},
 	}
 }
 ```
@@ -422,7 +422,7 @@ output "location" {
 
 We're going to test the Data Source that we've just built by dynamically provisioning a Resource Group using the Azure Provider, then asserting that we can look up that Resource Group using the new `azurerm_resource_group_example` Data Source.
 
-In Go tests are expected to be in a file name in the format `{original_file_name}_test.go` - in our case that'd be `resource_group_example_data_source_test.go`, into which we'll want to add: 
+In Go tests are expected to be in a file name in the format `{original_file_name}_test.go` - in our case that'd be `resource_group_example_data_source_test.go`, into which we'll want to add:
 
 ```go
 package resource_test
@@ -432,8 +432,8 @@ import (
 	"testing"
 
 	"github.com/hashicorp/go-azure-helpers/resourcemanager/location"
-	"github.com/hashicorp/terraform-provider-azurerm/internal/acceptance"
-	"github.com/hashicorp/terraform-provider-azurerm/internal/acceptance/check"
+	"github.com/aoshfan/terraform-provider-customazurerm/internal/acceptance"
+	"github.com/aoshfan/terraform-provider-customazurerm/internal/acceptance/check"
 )
 
 type ResourceGroupExampleDataSource struct{}
@@ -499,13 +499,13 @@ Which should output:
 ==> Checking that code complies with gofmt requirements...
 ==> Checking that Custom Timeouts are used...
 ==> Checking that acceptance test packages are used...
-TF_ACC=1 go test -v ./internal/services/resource -run=TestAccResourceGroupExampleDataSource_basic -timeout 60m -ldflags="-X=github.com/hashicorp/terraform-provider-azurerm/version.ProviderVersion=acc"
+TF_ACC=1 go test -v ./internal/services/resource -run=TestAccResourceGroupExampleDataSource_basic -timeout 60m -ldflags="-X=github.com/aoshfan/terraform-provider-customazurerm/version.ProviderVersion=acc"
 === RUN   TestAccResourceGroupExampleDataSource_basic
 === PAUSE TestAccResourceGroupExampleDataSource_basic
 === CONT  TestAccResourceGroupExampleDataSource_basic
 --- PASS: TestAccResourceGroupExampleDataSource_basic (88.15s)
 PASS
-ok  	github.com/hashicorp/terraform-provider-azurerm/internal/services/resource	88.735s
+ok  	github.com/aoshfan/terraform-provider-customazurerm/internal/services/resource	88.735s
 ```
 
 ### Step 7: Add Documentation for this Data Source
@@ -539,11 +539,11 @@ Use this data source to access information about an existing Resource Group.
 
 [][][]hcl
 data "azurerm_resource_group_example" "example" {
-  name = "existing"
+name = "existing"
 }
 
 output "id" {
-  value = data.azurerm_resource_group_example.example.id
+value = data.azurerm_resource_group_example.example.id
 }
 [][][]
 
@@ -551,23 +551,23 @@ output "id" {
 
 The following arguments are supported:
 
-* `name` - (Required) The Name of this Resource Group.
+- `name` - (Required) The Name of this Resource Group.
 
 ## Attributes Reference
 
 In addition to the Arguments listed above - the following Attributes are exported:
 
-* `id` - The ID of the Resource Group.
+- `id` - The ID of the Resource Group.
 
-* `location` - The Azure Region where the Resource Group exists.
+- `location` - The Azure Region where the Resource Group exists.
 
-* `tags` - A mapping of tags assigned to the Resource Group.
+- `tags` - A mapping of tags assigned to the Resource Group.
 
 ## Timeouts
 
 The `timeouts` block allows you to specify [timeouts](https://www.terraform.io/language/resources/syntax#operation-timeouts) for certain actions:
 
-* `read` - (Defaults to 5 minutes) Used when retrieving the Resource Group.
+- `read` - (Defaults to 5 minutes) Used when retrieving the Resource Group.
 ```
 
 > **Note:** In the example above you'll need to replace each `[]` with a backtick "`" - as otherwise this gets rendered incorrectly, unfortunately.
